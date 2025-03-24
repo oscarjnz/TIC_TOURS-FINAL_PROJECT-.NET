@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="turismo_seguro" Class="DbLibraryEntityDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=OSCAR\SQLEXPRESS;Initial Catalog=turismo_seguro;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True" SettingsObjectName="capaDatos.Properties.Settings" SettingsPropertyName="turismo_seguroConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.td_cotizacion" Member="td_cotizacions">
+    <Type Name="td_cotizacion">
+      <Column Name="id_cotizacion" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="id_usuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="id_seguro" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="id_pais_destino" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="id_moneda" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="fecha_salida" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="fecha_regreso" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="cantidad_viajeros" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="precio_total" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
+      <Column Name="estado" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="creada_en" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="actualizada_en" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="flag_activo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="td_cotizacion_td_poliza" Member="td_polizas" ThisKey="id_cotizacion" OtherKey="id_cotizacion" Type="td_poliza" />
+      <Association Name="td_cotizacion_td_viajero" Member="td_viajeros" ThisKey="id_cotizacion" OtherKey="id_cotizacion" Type="td_viajero" />
+      <Association Name="tm_moneda_td_cotizacion" Member="tm_moneda" ThisKey="id_moneda" OtherKey="id_moneda" Type="tm_moneda" IsForeignKey="true" />
+      <Association Name="tm_pai_td_cotizacion" Member="tm_pai" ThisKey="id_pais_destino" OtherKey="id_pais" Type="tm_pai" IsForeignKey="true" />
+      <Association Name="tm_seguro_td_cotizacion" Member="tm_seguro" ThisKey="id_seguro" OtherKey="id_seguro" Type="tm_seguro" IsForeignKey="true" />
+      <Association Name="tm_usuario_td_cotizacion" Member="tm_usuario" ThisKey="id_usuario" OtherKey="id_usuario" Type="tm_usuario" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.td_pago" Member="td_pagos">
+    <Type Name="td_pago">
+      <Column Name="id_pago" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="id_usuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="id_poliza" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="id_moneda" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="monto_pagado" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
+      <Column Name="metodo_pago" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="referencia_pago" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="estado" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="creada_en" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="actualizada_en" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="flag_activo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="td_poliza_td_pago" Member="td_poliza" ThisKey="id_poliza" OtherKey="id_poliza" Type="td_poliza" IsForeignKey="true" />
+      <Association Name="tm_moneda_td_pago" Member="tm_moneda" ThisKey="id_moneda" OtherKey="id_moneda" Type="tm_moneda" IsForeignKey="true" />
+      <Association Name="tm_usuario_td_pago" Member="tm_usuario" ThisKey="id_usuario" OtherKey="id_usuario" Type="tm_usuario" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.td_poliza" Member="td_polizas">
+    <Type Name="td_poliza">
+      <Column Name="id_poliza" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="id_usuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="id_seguro" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="id_cotizacion" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="fecha_inicio" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="fecha_fin" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="monto" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
+      <Column Name="estado" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="creada_en" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="actualizada_en" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="flag_activo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="td_poliza_td_pago" Member="td_pagos" ThisKey="id_poliza" OtherKey="id_poliza" Type="td_pago" />
+      <Association Name="td_poliza_td_reclamo" Member="td_reclamos" ThisKey="id_poliza" OtherKey="id_poliza" Type="td_reclamo" />
+      <Association Name="td_cotizacion_td_poliza" Member="td_cotizacion" ThisKey="id_cotizacion" OtherKey="id_cotizacion" Type="td_cotizacion" IsForeignKey="true" />
+      <Association Name="tm_seguro_td_poliza" Member="tm_seguro" ThisKey="id_seguro" OtherKey="id_seguro" Type="tm_seguro" IsForeignKey="true" />
+      <Association Name="tm_usuario_td_poliza" Member="tm_usuario" ThisKey="id_usuario" OtherKey="id_usuario" Type="tm_usuario" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.td_reclamo" Member="td_reclamos">
+    <Type Name="td_reclamo">
+      <Column Name="id_reclamo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="id_poliza" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="id_usuario" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="descripcion" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Column Name="fecha_reclamo" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="estado" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="creada_en" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="actualizada_en" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="flag_activo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="td_poliza_td_reclamo" Member="td_poliza" ThisKey="id_poliza" OtherKey="id_poliza" Type="td_poliza" IsForeignKey="true" />
+      <Association Name="tm_usuario_td_reclamo" Member="tm_usuario" ThisKey="id_usuario" OtherKey="id_usuario" Type="tm_usuario" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.td_viajero" Member="td_viajeros">
+    <Type Name="td_viajero">
+      <Column Name="id_viajero" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="id_cotizacion" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="nombre" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="cedula_pasaporte" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="edad" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="telefono" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="creada_en" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="actualizada_en" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="flag_activo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="td_cotizacion_td_viajero" Member="td_cotizacion" ThisKey="id_cotizacion" OtherKey="id_cotizacion" Type="td_cotizacion" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tm_moneda" Member="tm_monedas">
+    <Type Name="tm_moneda">
+      <Column Name="id_moneda" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="codigo" Type="System.String" DbType="VarChar(3) NOT NULL" CanBeNull="false" />
+      <Column Name="nombre" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="tasa_cambio" Type="System.Decimal" DbType="Decimal(10,4) NOT NULL" CanBeNull="false" />
+      <Column Name="creada_en" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="actualizada_en" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="flag_activo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="tm_moneda_td_cotizacion" Member="td_cotizacions" ThisKey="id_moneda" OtherKey="id_moneda" Type="td_cotizacion" />
+      <Association Name="tm_moneda_td_pago" Member="td_pagos" ThisKey="id_moneda" OtherKey="id_moneda" Type="td_pago" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tm_pais" Member="tm_pais">
+    <Type Name="tm_pai">
+      <Column Name="id_pais" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nombre" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="creada_en" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="actualizada_en" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="flag_activo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="tm_pai_td_cotizacion" Member="td_cotizacions" ThisKey="id_pais" OtherKey="id_pais_destino" Type="td_cotizacion" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tm_seguro" Member="tm_seguros">
+    <Type Name="tm_seguro">
+      <Column Name="id_seguro" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nombre" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="descripcion" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="cobertura" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="precio" Type="System.Decimal" DbType="Decimal(10,2) NOT NULL" CanBeNull="false" />
+      <Column Name="duracion" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="creada_en" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="actualizada_en" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="flag_activo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="tm_seguro_td_cotizacion" Member="td_cotizacions" ThisKey="id_seguro" OtherKey="id_seguro" Type="td_cotizacion" />
+      <Association Name="tm_seguro_td_poliza" Member="td_polizas" ThisKey="id_seguro" OtherKey="id_seguro" Type="td_poliza" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tm_usuario" Member="tm_usuarios">
+    <Type Name="tm_usuario">
+      <Column Name="id_usuario" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="nombre" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="correo" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="telefono" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="contraseña" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="tipo_usuario" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="direccion" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="creada_en" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="actualizada_en" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="flag_activo" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="tm_usuario_td_cotizacion" Member="td_cotizacions" ThisKey="id_usuario" OtherKey="id_usuario" Type="td_cotizacion" />
+      <Association Name="tm_usuario_td_pago" Member="td_pagos" ThisKey="id_usuario" OtherKey="id_usuario" Type="td_pago" />
+      <Association Name="tm_usuario_td_poliza" Member="td_polizas" ThisKey="id_usuario" OtherKey="id_usuario" Type="td_poliza" />
+      <Association Name="tm_usuario_td_reclamo" Member="td_reclamos" ThisKey="id_usuario" OtherKey="id_usuario" Type="td_reclamo" />
+    </Type>
+  </Table>
+</Database>
