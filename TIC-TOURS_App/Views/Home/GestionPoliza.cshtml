@@ -1,0 +1,30 @@
+@model List<capaModelo.VistaPolizaModelo> 
+@{
+    ViewBag.Title = "Gestión de Pólizas";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Número de Póliza</th>
+            <th>Seguro</th>
+            <th>Fecha de Inicio</th>
+            <th>Fecha de Fin</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var poliza in Model)
+        {
+            <tr>
+                <td>@poliza.NumeroPoliza</td>
+                <td>@poliza.NombreSeguro</td>
+                <td>@poliza.FechaInicio.ToString("dd/MM/yyyy")</td>
+                <td>@poliza.FechaFin.ToString("dd/MM/yyyy")</td>
+                <td>@poliza.Estado</td>
+            </tr>
+        }
+    </tbody>
+</table>

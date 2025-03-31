@@ -1,0 +1,36 @@
+﻿@model capaModelo.VistaCotizacionModelo
+@{
+    ViewBag.Title = "Cotización de Seguros";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@if (!string.IsNullOrEmpty(Model.MensajeError))
+{
+    <div class="alert alert-danger">@Model.MensajeError</div>
+}
+
+<form method="post" action="/Cotizacion/Calcular">
+    <div class="form-group">
+        <label>Destino</label>
+        <input type="text" name="Destino" class="form-control" value="@Model.Destino" required />
+    </div>
+    <div class="form-group">
+        <label>Fecha de Salida</label>
+        <input type="date" name="FechaSalida" class="form-control" value="@Model.FechaSalida.ToString("yyyy-MM-dd")" required />
+    </div>
+    <div class="form-group">
+        <label>Fecha de Regreso</label>
+        <input type="date" name="FechaRegreso" class="form-control" value="@Model.FechaRegreso.ToString("yyyy-MM-dd")" required />
+    </div>
+    <div class="form-group">
+        <label>Cantidad de Viajeros</label>
+        <input type="number" name="CantidadViajeros" class="form-control" value="@Model.CantidadViajeros" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Calcular Cotización</button>
+</form>
+
+@if (Model.PrecioCotizacion > 0)
+{
+    <h3>Precio de la Cotización: @Model.PrecioCotizacion.ToString("C")</h3>
+}

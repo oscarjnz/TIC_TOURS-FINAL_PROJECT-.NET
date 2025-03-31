@@ -1,0 +1,41 @@
+@model capaModelo.VistaCompraModelo
+@{
+    ViewBag.Title = "Compra de Seguro";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@if (!string.IsNullOrEmpty(Model.MensajeError))
+{
+    <div class="alert alert-danger">@Model.MensajeError</div>
+}
+
+@if (Model.CompraExitosa)
+{
+    <div class="alert alert-success">Compra realizada con éxito.</div>
+}
+else
+{
+    <form method="post" action="/Compra/Procesar">
+        <div class="form-group">
+            <label>Seguro Seleccionado</label>
+            <input type="text" name="NombreSeguro" class="form-control" value="@Model.NombreSeguro" readonly />
+        </div>
+        <div class="form-group">
+            <label>Precio</label>
+            <input type="text" name="Precio" class="form-control" value="@Model.Precio" readonly />
+        </div>
+        <div class="form-group">
+            <label>Nombre de Usuario</label>
+            <input type="text" name="NombreUsuario" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label>Método de Pago</label>
+            <select name="MetodoPago" class="form-control">
+                <option value="TarjetaCredito">Tarjeta de Crédito</option>
+                <option value="PayPal">PayPal</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Confirmar Compra</button>
+    </form>
+}

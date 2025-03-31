@@ -174,9 +174,11 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Cotizacion.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Compra.cshtml" />
+    <Content Include="Views\Home\Reclamacion.cshtml" />
+    <Content Include="Views\Home\GestionPoliza.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -208,6 +210,16 @@
     <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="Scripts\jquery-3.7.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.7.0.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\capaModelo\capaModelo.csproj">
+      <Project>{3513d6e6-0516-4a15-b2b0-2a80d3eacafd}</Project>
+      <Name>capaModelo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\capaNegocios\capaNegocios.csproj">
+      <Project>{010f7645-78f8-4522-9b45-31e4e24dc954}</Project>
+      <Name>capaNegocios</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
