@@ -33,6 +33,9 @@ namespace capaDatos.Database
     partial void Inserttd_cotizacion(td_cotizacion instance);
     partial void Updatetd_cotizacion(td_cotizacion instance);
     partial void Deletetd_cotizacion(td_cotizacion instance);
+    partial void Inserttm_usuario(tm_usuario instance);
+    partial void Updatetm_usuario(tm_usuario instance);
+    partial void Deletetm_usuario(tm_usuario instance);
     partial void Inserttd_pago(td_pago instance);
     partial void Updatetd_pago(td_pago instance);
     partial void Deletetd_pago(td_pago instance);
@@ -54,9 +57,6 @@ namespace capaDatos.Database
     partial void Inserttm_seguro(tm_seguro instance);
     partial void Updatetm_seguro(tm_seguro instance);
     partial void Deletetm_seguro(tm_seguro instance);
-    partial void Inserttm_usuario(tm_usuario instance);
-    partial void Updatetm_usuario(tm_usuario instance);
-    partial void Deletetm_usuario(tm_usuario instance);
     #endregion
 		
 		public DbLibraryEntityDataContext() : 
@@ -94,6 +94,14 @@ namespace capaDatos.Database
 			get
 			{
 				return this.GetTable<td_cotizacion>();
+			}
+		}
+		
+		public System.Data.Linq.Table<tm_usuario> tm_usuarios
+		{
+			get
+			{
+				return this.GetTable<tm_usuario>();
 			}
 		}
 		
@@ -152,14 +160,6 @@ namespace capaDatos.Database
 				return this.GetTable<tm_seguro>();
 			}
 		}
-		
-		public System.Data.Linq.Table<tm_usuario> tm_usuarios
-		{
-			get
-			{
-				return this.GetTable<tm_usuario>();
-			}
-		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.td_cotizacion")]
@@ -198,13 +198,13 @@ namespace capaDatos.Database
 		
 		private EntitySet<td_viajero> _td_viajeros;
 		
+		private EntityRef<tm_usuario> _tm_usuario;
+		
 		private EntityRef<tm_moneda> _tm_moneda;
 		
 		private EntityRef<tm_pai> _tm_pai;
 		
 		private EntityRef<tm_seguro> _tm_seguro;
-		
-		private EntityRef<tm_usuario> _tm_usuario;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -242,10 +242,10 @@ namespace capaDatos.Database
 		{
 			this._td_polizas = new EntitySet<td_poliza>(new Action<td_poliza>(this.attach_td_polizas), new Action<td_poliza>(this.detach_td_polizas));
 			this._td_viajeros = new EntitySet<td_viajero>(new Action<td_viajero>(this.attach_td_viajeros), new Action<td_viajero>(this.detach_td_viajeros));
+			this._tm_usuario = default(EntityRef<tm_usuario>);
 			this._tm_moneda = default(EntityRef<tm_moneda>);
 			this._tm_pai = default(EntityRef<tm_pai>);
 			this._tm_seguro = default(EntityRef<tm_seguro>);
-			this._tm_usuario = default(EntityRef<tm_usuario>);
 			OnCreated();
 		}
 		
@@ -445,7 +445,7 @@ namespace capaDatos.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_estado", DbType="VarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_estado", DbType="VarChar(20)")]
 		public string estado
 		{
 			get
@@ -465,7 +465,7 @@ namespace capaDatos.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_creada_en", DbType="DateTime2")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_creada_en", DbType="DateTime")]
 		public System.Nullable<System.DateTime> creada_en
 		{
 			get
@@ -485,7 +485,7 @@ namespace capaDatos.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_actualizada_en", DbType="DateTime2")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_actualizada_en", DbType="DateTime")]
 		public System.Nullable<System.DateTime> actualizada_en
 		{
 			get
@@ -548,6 +548,40 @@ namespace capaDatos.Database
 			set
 			{
 				this._td_viajeros.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tm_usuario_td_cotizacion", Storage="_tm_usuario", ThisKey="id_usuario", OtherKey="id_usuario", IsForeignKey=true)]
+		public tm_usuario tm_usuario
+		{
+			get
+			{
+				return this._tm_usuario.Entity;
+			}
+			set
+			{
+				tm_usuario previousValue = this._tm_usuario.Entity;
+				if (((previousValue != value) 
+							|| (this._tm_usuario.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._tm_usuario.Entity = null;
+						previousValue.td_cotizacions.Remove(this);
+					}
+					this._tm_usuario.Entity = value;
+					if ((value != null))
+					{
+						value.td_cotizacions.Add(this);
+						this._id_usuario = value.id_usuario;
+					}
+					else
+					{
+						this._id_usuario = default(int);
+					}
+					this.SendPropertyChanged("tm_usuario");
+				}
 			}
 		}
 		
@@ -653,40 +687,6 @@ namespace capaDatos.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tm_usuario_td_cotizacion", Storage="_tm_usuario", ThisKey="id_usuario", OtherKey="id_usuario", IsForeignKey=true)]
-		public tm_usuario tm_usuario
-		{
-			get
-			{
-				return this._tm_usuario.Entity;
-			}
-			set
-			{
-				tm_usuario previousValue = this._tm_usuario.Entity;
-				if (((previousValue != value) 
-							|| (this._tm_usuario.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._tm_usuario.Entity = null;
-						previousValue.td_cotizacions.Remove(this);
-					}
-					this._tm_usuario.Entity = value;
-					if ((value != null))
-					{
-						value.td_cotizacions.Add(this);
-						this._id_usuario = value.id_usuario;
-					}
-					else
-					{
-						this._id_usuario = default(int);
-					}
-					this.SendPropertyChanged("tm_usuario");
-				}
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -732,6 +732,396 @@ namespace capaDatos.Database
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tm_usuario")]
+	public partial class tm_usuario : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _id_usuario;
+		
+		private string _nombre;
+		
+		private string _correo;
+		
+		private string _telefono;
+		
+		private string _contraseña;
+		
+		private string _tipo_usuario;
+		
+		private string _direccion;
+		
+		private System.Nullable<System.DateTime> _creada_en;
+		
+		private System.Nullable<System.DateTime> _actualizada_en;
+		
+		private System.Nullable<bool> _flag_activo;
+		
+		private EntitySet<td_cotizacion> _td_cotizacions;
+		
+		private EntitySet<td_pago> _td_pagos;
+		
+		private EntitySet<td_poliza> _td_polizas;
+		
+		private EntitySet<td_reclamo> _td_reclamos;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void Onid_usuarioChanging(int value);
+    partial void Onid_usuarioChanged();
+    partial void OnnombreChanging(string value);
+    partial void OnnombreChanged();
+    partial void OncorreoChanging(string value);
+    partial void OncorreoChanged();
+    partial void OntelefonoChanging(string value);
+    partial void OntelefonoChanged();
+    partial void OncontraseñaChanging(string value);
+    partial void OncontraseñaChanged();
+    partial void Ontipo_usuarioChanging(string value);
+    partial void Ontipo_usuarioChanged();
+    partial void OndireccionChanging(string value);
+    partial void OndireccionChanged();
+    partial void Oncreada_enChanging(System.Nullable<System.DateTime> value);
+    partial void Oncreada_enChanged();
+    partial void Onactualizada_enChanging(System.Nullable<System.DateTime> value);
+    partial void Onactualizada_enChanged();
+    partial void Onflag_activoChanging(System.Nullable<bool> value);
+    partial void Onflag_activoChanged();
+    #endregion
+		
+		public tm_usuario()
+		{
+			this._td_cotizacions = new EntitySet<td_cotizacion>(new Action<td_cotizacion>(this.attach_td_cotizacions), new Action<td_cotizacion>(this.detach_td_cotizacions));
+			this._td_pagos = new EntitySet<td_pago>(new Action<td_pago>(this.attach_td_pagos), new Action<td_pago>(this.detach_td_pagos));
+			this._td_polizas = new EntitySet<td_poliza>(new Action<td_poliza>(this.attach_td_polizas), new Action<td_poliza>(this.detach_td_polizas));
+			this._td_reclamos = new EntitySet<td_reclamo>(new Action<td_reclamo>(this.attach_td_reclamos), new Action<td_reclamo>(this.detach_td_reclamos));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_usuario", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int id_usuario
+		{
+			get
+			{
+				return this._id_usuario;
+			}
+			set
+			{
+				if ((this._id_usuario != value))
+				{
+					this.Onid_usuarioChanging(value);
+					this.SendPropertyChanging();
+					this._id_usuario = value;
+					this.SendPropertyChanged("id_usuario");
+					this.Onid_usuarioChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_nombre", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		public string nombre
+		{
+			get
+			{
+				return this._nombre;
+			}
+			set
+			{
+				if ((this._nombre != value))
+				{
+					this.OnnombreChanging(value);
+					this.SendPropertyChanging();
+					this._nombre = value;
+					this.SendPropertyChanged("nombre");
+					this.OnnombreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_correo", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
+		public string correo
+		{
+			get
+			{
+				return this._correo;
+			}
+			set
+			{
+				if ((this._correo != value))
+				{
+					this.OncorreoChanging(value);
+					this.SendPropertyChanging();
+					this._correo = value;
+					this.SendPropertyChanged("correo");
+					this.OncorreoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_telefono", DbType="VarChar(20)")]
+		public string telefono
+		{
+			get
+			{
+				return this._telefono;
+			}
+			set
+			{
+				if ((this._telefono != value))
+				{
+					this.OntelefonoChanging(value);
+					this.SendPropertyChanging();
+					this._telefono = value;
+					this.SendPropertyChanged("telefono");
+					this.OntelefonoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_contraseña", DbType="VarChar(255) NOT NULL", CanBeNull=false)]
+		public string contraseña
+		{
+			get
+			{
+				return this._contraseña;
+			}
+			set
+			{
+				if ((this._contraseña != value))
+				{
+					this.OncontraseñaChanging(value);
+					this.SendPropertyChanging();
+					this._contraseña = value;
+					this.SendPropertyChanged("contraseña");
+					this.OncontraseñaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tipo_usuario", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string tipo_usuario
+		{
+			get
+			{
+				return this._tipo_usuario;
+			}
+			set
+			{
+				if ((this._tipo_usuario != value))
+				{
+					this.Ontipo_usuarioChanging(value);
+					this.SendPropertyChanging();
+					this._tipo_usuario = value;
+					this.SendPropertyChanged("tipo_usuario");
+					this.Ontipo_usuarioChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_direccion", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string direccion
+		{
+			get
+			{
+				return this._direccion;
+			}
+			set
+			{
+				if ((this._direccion != value))
+				{
+					this.OndireccionChanging(value);
+					this.SendPropertyChanging();
+					this._direccion = value;
+					this.SendPropertyChanged("direccion");
+					this.OndireccionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_creada_en", DbType="DateTime")]
+		public System.Nullable<System.DateTime> creada_en
+		{
+			get
+			{
+				return this._creada_en;
+			}
+			set
+			{
+				if ((this._creada_en != value))
+				{
+					this.Oncreada_enChanging(value);
+					this.SendPropertyChanging();
+					this._creada_en = value;
+					this.SendPropertyChanged("creada_en");
+					this.Oncreada_enChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_actualizada_en", DbType="DateTime")]
+		public System.Nullable<System.DateTime> actualizada_en
+		{
+			get
+			{
+				return this._actualizada_en;
+			}
+			set
+			{
+				if ((this._actualizada_en != value))
+				{
+					this.Onactualizada_enChanging(value);
+					this.SendPropertyChanging();
+					this._actualizada_en = value;
+					this.SendPropertyChanged("actualizada_en");
+					this.Onactualizada_enChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_flag_activo", DbType="Bit")]
+		public System.Nullable<bool> flag_activo
+		{
+			get
+			{
+				return this._flag_activo;
+			}
+			set
+			{
+				if ((this._flag_activo != value))
+				{
+					this.Onflag_activoChanging(value);
+					this.SendPropertyChanging();
+					this._flag_activo = value;
+					this.SendPropertyChanged("flag_activo");
+					this.Onflag_activoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tm_usuario_td_cotizacion", Storage="_td_cotizacions", ThisKey="id_usuario", OtherKey="id_usuario")]
+		public EntitySet<td_cotizacion> td_cotizacions
+		{
+			get
+			{
+				return this._td_cotizacions;
+			}
+			set
+			{
+				this._td_cotizacions.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tm_usuario_td_pago", Storage="_td_pagos", ThisKey="id_usuario", OtherKey="id_usuario")]
+		public EntitySet<td_pago> td_pagos
+		{
+			get
+			{
+				return this._td_pagos;
+			}
+			set
+			{
+				this._td_pagos.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tm_usuario_td_poliza", Storage="_td_polizas", ThisKey="id_usuario", OtherKey="id_usuario")]
+		public EntitySet<td_poliza> td_polizas
+		{
+			get
+			{
+				return this._td_polizas;
+			}
+			set
+			{
+				this._td_polizas.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tm_usuario_td_reclamo", Storage="_td_reclamos", ThisKey="id_usuario", OtherKey="id_usuario")]
+		public EntitySet<td_reclamo> td_reclamos
+		{
+			get
+			{
+				return this._td_reclamos;
+			}
+			set
+			{
+				this._td_reclamos.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_td_cotizacions(td_cotizacion entity)
+		{
+			this.SendPropertyChanging();
+			entity.tm_usuario = this;
+		}
+		
+		private void detach_td_cotizacions(td_cotizacion entity)
+		{
+			this.SendPropertyChanging();
+			entity.tm_usuario = null;
+		}
+		
+		private void attach_td_pagos(td_pago entity)
+		{
+			this.SendPropertyChanging();
+			entity.tm_usuario = this;
+		}
+		
+		private void detach_td_pagos(td_pago entity)
+		{
+			this.SendPropertyChanging();
+			entity.tm_usuario = null;
+		}
+		
+		private void attach_td_polizas(td_poliza entity)
+		{
+			this.SendPropertyChanging();
+			entity.tm_usuario = this;
+		}
+		
+		private void detach_td_polizas(td_poliza entity)
+		{
+			this.SendPropertyChanging();
+			entity.tm_usuario = null;
+		}
+		
+		private void attach_td_reclamos(td_reclamo entity)
+		{
+			this.SendPropertyChanging();
+			entity.tm_usuario = this;
+		}
+		
+		private void detach_td_reclamos(td_reclamo entity)
+		{
+			this.SendPropertyChanging();
+			entity.tm_usuario = null;
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.td_pago")]
 	public partial class td_pago : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -760,11 +1150,11 @@ namespace capaDatos.Database
 		
 		private System.Nullable<bool> _flag_activo;
 		
+		private EntityRef<tm_usuario> _tm_usuario;
+		
 		private EntityRef<td_poliza> _td_poliza;
 		
 		private EntityRef<tm_moneda> _tm_moneda;
-		
-		private EntityRef<tm_usuario> _tm_usuario;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -796,9 +1186,9 @@ namespace capaDatos.Database
 		
 		public td_pago()
 		{
+			this._tm_usuario = default(EntityRef<tm_usuario>);
 			this._td_poliza = default(EntityRef<td_poliza>);
 			this._tm_moneda = default(EntityRef<tm_moneda>);
-			this._tm_usuario = default(EntityRef<tm_usuario>);
 			OnCreated();
 		}
 		
@@ -954,7 +1344,7 @@ namespace capaDatos.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_estado", DbType="VarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_estado", DbType="VarChar(20)")]
 		public string estado
 		{
 			get
@@ -974,7 +1364,7 @@ namespace capaDatos.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_creada_en", DbType="DateTime2")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_creada_en", DbType="DateTime")]
 		public System.Nullable<System.DateTime> creada_en
 		{
 			get
@@ -994,7 +1384,7 @@ namespace capaDatos.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_actualizada_en", DbType="DateTime2")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_actualizada_en", DbType="DateTime")]
 		public System.Nullable<System.DateTime> actualizada_en
 		{
 			get
@@ -1030,6 +1420,40 @@ namespace capaDatos.Database
 					this._flag_activo = value;
 					this.SendPropertyChanged("flag_activo");
 					this.Onflag_activoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tm_usuario_td_pago", Storage="_tm_usuario", ThisKey="id_usuario", OtherKey="id_usuario", IsForeignKey=true)]
+		public tm_usuario tm_usuario
+		{
+			get
+			{
+				return this._tm_usuario.Entity;
+			}
+			set
+			{
+				tm_usuario previousValue = this._tm_usuario.Entity;
+				if (((previousValue != value) 
+							|| (this._tm_usuario.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._tm_usuario.Entity = null;
+						previousValue.td_pagos.Remove(this);
+					}
+					this._tm_usuario.Entity = value;
+					if ((value != null))
+					{
+						value.td_pagos.Add(this);
+						this._id_usuario = value.id_usuario;
+					}
+					else
+					{
+						this._id_usuario = default(int);
+					}
+					this.SendPropertyChanged("tm_usuario");
 				}
 			}
 		}
@@ -1102,40 +1526,6 @@ namespace capaDatos.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tm_usuario_td_pago", Storage="_tm_usuario", ThisKey="id_usuario", OtherKey="id_usuario", IsForeignKey=true)]
-		public tm_usuario tm_usuario
-		{
-			get
-			{
-				return this._tm_usuario.Entity;
-			}
-			set
-			{
-				tm_usuario previousValue = this._tm_usuario.Entity;
-				if (((previousValue != value) 
-							|| (this._tm_usuario.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._tm_usuario.Entity = null;
-						previousValue.td_pagos.Remove(this);
-					}
-					this._tm_usuario.Entity = value;
-					if ((value != null))
-					{
-						value.td_pagos.Add(this);
-						this._id_usuario = value.id_usuario;
-					}
-					else
-					{
-						this._id_usuario = default(int);
-					}
-					this.SendPropertyChanged("tm_usuario");
-				}
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1191,9 +1581,9 @@ namespace capaDatos.Database
 		
 		private EntityRef<td_cotizacion> _td_cotizacion;
 		
-		private EntityRef<tm_seguro> _tm_seguro;
-		
 		private EntityRef<tm_usuario> _tm_usuario;
+		
+		private EntityRef<tm_seguro> _tm_seguro;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1228,8 +1618,8 @@ namespace capaDatos.Database
 			this._td_pagos = new EntitySet<td_pago>(new Action<td_pago>(this.attach_td_pagos), new Action<td_pago>(this.detach_td_pagos));
 			this._td_reclamos = new EntitySet<td_reclamo>(new Action<td_reclamo>(this.attach_td_reclamos), new Action<td_reclamo>(this.detach_td_reclamos));
 			this._td_cotizacion = default(EntityRef<td_cotizacion>);
-			this._tm_seguro = default(EntityRef<tm_seguro>);
 			this._tm_usuario = default(EntityRef<tm_usuario>);
+			this._tm_seguro = default(EntityRef<tm_seguro>);
 			OnCreated();
 		}
 		
@@ -1385,7 +1775,7 @@ namespace capaDatos.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_estado", DbType="VarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_estado", DbType="VarChar(20)")]
 		public string estado
 		{
 			get
@@ -1405,7 +1795,7 @@ namespace capaDatos.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_creada_en", DbType="DateTime2")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_creada_en", DbType="DateTime")]
 		public System.Nullable<System.DateTime> creada_en
 		{
 			get
@@ -1425,7 +1815,7 @@ namespace capaDatos.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_actualizada_en", DbType="DateTime2")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_actualizada_en", DbType="DateTime")]
 		public System.Nullable<System.DateTime> actualizada_en
 		{
 			get
@@ -1525,40 +1915,6 @@ namespace capaDatos.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tm_seguro_td_poliza", Storage="_tm_seguro", ThisKey="id_seguro", OtherKey="id_seguro", IsForeignKey=true)]
-		public tm_seguro tm_seguro
-		{
-			get
-			{
-				return this._tm_seguro.Entity;
-			}
-			set
-			{
-				tm_seguro previousValue = this._tm_seguro.Entity;
-				if (((previousValue != value) 
-							|| (this._tm_seguro.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._tm_seguro.Entity = null;
-						previousValue.td_polizas.Remove(this);
-					}
-					this._tm_seguro.Entity = value;
-					if ((value != null))
-					{
-						value.td_polizas.Add(this);
-						this._id_seguro = value.id_seguro;
-					}
-					else
-					{
-						this._id_seguro = default(int);
-					}
-					this.SendPropertyChanged("tm_seguro");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tm_usuario_td_poliza", Storage="_tm_usuario", ThisKey="id_usuario", OtherKey="id_usuario", IsForeignKey=true)]
 		public tm_usuario tm_usuario
 		{
@@ -1589,6 +1945,40 @@ namespace capaDatos.Database
 						this._id_usuario = default(int);
 					}
 					this.SendPropertyChanged("tm_usuario");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tm_seguro_td_poliza", Storage="_tm_seguro", ThisKey="id_seguro", OtherKey="id_seguro", IsForeignKey=true)]
+		public tm_seguro tm_seguro
+		{
+			get
+			{
+				return this._tm_seguro.Entity;
+			}
+			set
+			{
+				tm_seguro previousValue = this._tm_seguro.Entity;
+				if (((previousValue != value) 
+							|| (this._tm_seguro.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._tm_seguro.Entity = null;
+						previousValue.td_polizas.Remove(this);
+					}
+					this._tm_seguro.Entity = value;
+					if ((value != null))
+					{
+						value.td_polizas.Add(this);
+						this._id_seguro = value.id_seguro;
+					}
+					else
+					{
+						this._id_seguro = default(int);
+					}
+					this.SendPropertyChanged("tm_seguro");
 				}
 			}
 		}
@@ -1785,7 +2175,7 @@ namespace capaDatos.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_fecha_reclamo", DbType="DateTime2")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_fecha_reclamo", DbType="DateTime")]
 		public System.Nullable<System.DateTime> fecha_reclamo
 		{
 			get
@@ -1805,7 +2195,7 @@ namespace capaDatos.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_estado", DbType="VarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_estado", DbType="VarChar(20)")]
 		public string estado
 		{
 			get
@@ -1825,7 +2215,7 @@ namespace capaDatos.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_creada_en", DbType="DateTime2")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_creada_en", DbType="DateTime")]
 		public System.Nullable<System.DateTime> creada_en
 		{
 			get
@@ -1845,7 +2235,7 @@ namespace capaDatos.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_actualizada_en", DbType="DateTime2")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_actualizada_en", DbType="DateTime")]
 		public System.Nullable<System.DateTime> actualizada_en
 		{
 			get
@@ -2178,7 +2568,7 @@ namespace capaDatos.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_creada_en", DbType="DateTime2")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_creada_en", DbType="DateTime")]
 		public System.Nullable<System.DateTime> creada_en
 		{
 			get
@@ -2198,7 +2588,7 @@ namespace capaDatos.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_actualizada_en", DbType="DateTime2")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_actualizada_en", DbType="DateTime")]
 		public System.Nullable<System.DateTime> actualizada_en
 		{
 			get
@@ -2424,7 +2814,7 @@ namespace capaDatos.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_creada_en", DbType="DateTime2")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_creada_en", DbType="DateTime")]
 		public System.Nullable<System.DateTime> creada_en
 		{
 			get
@@ -2444,7 +2834,7 @@ namespace capaDatos.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_actualizada_en", DbType="DateTime2")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_actualizada_en", DbType="DateTime")]
 		public System.Nullable<System.DateTime> actualizada_en
 		{
 			get
@@ -2635,7 +3025,7 @@ namespace capaDatos.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_creada_en", DbType="DateTime2")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_creada_en", DbType="DateTime")]
 		public System.Nullable<System.DateTime> creada_en
 		{
 			get
@@ -2655,7 +3045,7 @@ namespace capaDatos.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_actualizada_en", DbType="DateTime2")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_actualizada_en", DbType="DateTime")]
 		public System.Nullable<System.DateTime> actualizada_en
 		{
 			get
@@ -2920,7 +3310,7 @@ namespace capaDatos.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_creada_en", DbType="DateTime2")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_creada_en", DbType="DateTime")]
 		public System.Nullable<System.DateTime> creada_en
 		{
 			get
@@ -2940,7 +3330,7 @@ namespace capaDatos.Database
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_actualizada_en", DbType="DateTime2")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_actualizada_en", DbType="DateTime")]
 		public System.Nullable<System.DateTime> actualizada_en
 		{
 			get
@@ -3048,396 +3438,6 @@ namespace capaDatos.Database
 		{
 			this.SendPropertyChanging();
 			entity.tm_seguro = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tm_usuario")]
-	public partial class tm_usuario : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id_usuario;
-		
-		private string _nombre;
-		
-		private string _correo;
-		
-		private string _telefono;
-		
-		private string _contraseña;
-		
-		private string _tipo_usuario;
-		
-		private string _direccion;
-		
-		private System.Nullable<System.DateTime> _creada_en;
-		
-		private System.Nullable<System.DateTime> _actualizada_en;
-		
-		private System.Nullable<bool> _flag_activo;
-		
-		private EntitySet<td_cotizacion> _td_cotizacions;
-		
-		private EntitySet<td_pago> _td_pagos;
-		
-		private EntitySet<td_poliza> _td_polizas;
-		
-		private EntitySet<td_reclamo> _td_reclamos;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onid_usuarioChanging(int value);
-    partial void Onid_usuarioChanged();
-    partial void OnnombreChanging(string value);
-    partial void OnnombreChanged();
-    partial void OncorreoChanging(string value);
-    partial void OncorreoChanged();
-    partial void OntelefonoChanging(string value);
-    partial void OntelefonoChanged();
-    partial void OncontraseñaChanging(string value);
-    partial void OncontraseñaChanged();
-    partial void Ontipo_usuarioChanging(string value);
-    partial void Ontipo_usuarioChanged();
-    partial void OndireccionChanging(string value);
-    partial void OndireccionChanged();
-    partial void Oncreada_enChanging(System.Nullable<System.DateTime> value);
-    partial void Oncreada_enChanged();
-    partial void Onactualizada_enChanging(System.Nullable<System.DateTime> value);
-    partial void Onactualizada_enChanged();
-    partial void Onflag_activoChanging(System.Nullable<bool> value);
-    partial void Onflag_activoChanged();
-    #endregion
-		
-		public tm_usuario()
-		{
-			this._td_cotizacions = new EntitySet<td_cotizacion>(new Action<td_cotizacion>(this.attach_td_cotizacions), new Action<td_cotizacion>(this.detach_td_cotizacions));
-			this._td_pagos = new EntitySet<td_pago>(new Action<td_pago>(this.attach_td_pagos), new Action<td_pago>(this.detach_td_pagos));
-			this._td_polizas = new EntitySet<td_poliza>(new Action<td_poliza>(this.attach_td_polizas), new Action<td_poliza>(this.detach_td_polizas));
-			this._td_reclamos = new EntitySet<td_reclamo>(new Action<td_reclamo>(this.attach_td_reclamos), new Action<td_reclamo>(this.detach_td_reclamos));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_usuario", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id_usuario
-		{
-			get
-			{
-				return this._id_usuario;
-			}
-			set
-			{
-				if ((this._id_usuario != value))
-				{
-					this.Onid_usuarioChanging(value);
-					this.SendPropertyChanging();
-					this._id_usuario = value;
-					this.SendPropertyChanged("id_usuario");
-					this.Onid_usuarioChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_nombre", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
-		public string nombre
-		{
-			get
-			{
-				return this._nombre;
-			}
-			set
-			{
-				if ((this._nombre != value))
-				{
-					this.OnnombreChanging(value);
-					this.SendPropertyChanging();
-					this._nombre = value;
-					this.SendPropertyChanged("nombre");
-					this.OnnombreChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_correo", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
-		public string correo
-		{
-			get
-			{
-				return this._correo;
-			}
-			set
-			{
-				if ((this._correo != value))
-				{
-					this.OncorreoChanging(value);
-					this.SendPropertyChanging();
-					this._correo = value;
-					this.SendPropertyChanged("correo");
-					this.OncorreoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_telefono", DbType="VarChar(20)")]
-		public string telefono
-		{
-			get
-			{
-				return this._telefono;
-			}
-			set
-			{
-				if ((this._telefono != value))
-				{
-					this.OntelefonoChanging(value);
-					this.SendPropertyChanging();
-					this._telefono = value;
-					this.SendPropertyChanged("telefono");
-					this.OntelefonoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_contraseña", DbType="VarChar(255) NOT NULL", CanBeNull=false)]
-		public string contraseña
-		{
-			get
-			{
-				return this._contraseña;
-			}
-			set
-			{
-				if ((this._contraseña != value))
-				{
-					this.OncontraseñaChanging(value);
-					this.SendPropertyChanging();
-					this._contraseña = value;
-					this.SendPropertyChanged("contraseña");
-					this.OncontraseñaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_tipo_usuario", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string tipo_usuario
-		{
-			get
-			{
-				return this._tipo_usuario;
-			}
-			set
-			{
-				if ((this._tipo_usuario != value))
-				{
-					this.Ontipo_usuarioChanging(value);
-					this.SendPropertyChanging();
-					this._tipo_usuario = value;
-					this.SendPropertyChanged("tipo_usuario");
-					this.Ontipo_usuarioChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_direccion", DbType="Text", UpdateCheck=UpdateCheck.Never)]
-		public string direccion
-		{
-			get
-			{
-				return this._direccion;
-			}
-			set
-			{
-				if ((this._direccion != value))
-				{
-					this.OndireccionChanging(value);
-					this.SendPropertyChanging();
-					this._direccion = value;
-					this.SendPropertyChanged("direccion");
-					this.OndireccionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_creada_en", DbType="DateTime2")]
-		public System.Nullable<System.DateTime> creada_en
-		{
-			get
-			{
-				return this._creada_en;
-			}
-			set
-			{
-				if ((this._creada_en != value))
-				{
-					this.Oncreada_enChanging(value);
-					this.SendPropertyChanging();
-					this._creada_en = value;
-					this.SendPropertyChanged("creada_en");
-					this.Oncreada_enChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_actualizada_en", DbType="DateTime2")]
-		public System.Nullable<System.DateTime> actualizada_en
-		{
-			get
-			{
-				return this._actualizada_en;
-			}
-			set
-			{
-				if ((this._actualizada_en != value))
-				{
-					this.Onactualizada_enChanging(value);
-					this.SendPropertyChanging();
-					this._actualizada_en = value;
-					this.SendPropertyChanged("actualizada_en");
-					this.Onactualizada_enChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_flag_activo", DbType="Bit")]
-		public System.Nullable<bool> flag_activo
-		{
-			get
-			{
-				return this._flag_activo;
-			}
-			set
-			{
-				if ((this._flag_activo != value))
-				{
-					this.Onflag_activoChanging(value);
-					this.SendPropertyChanging();
-					this._flag_activo = value;
-					this.SendPropertyChanged("flag_activo");
-					this.Onflag_activoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tm_usuario_td_cotizacion", Storage="_td_cotizacions", ThisKey="id_usuario", OtherKey="id_usuario")]
-		public EntitySet<td_cotizacion> td_cotizacions
-		{
-			get
-			{
-				return this._td_cotizacions;
-			}
-			set
-			{
-				this._td_cotizacions.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tm_usuario_td_pago", Storage="_td_pagos", ThisKey="id_usuario", OtherKey="id_usuario")]
-		public EntitySet<td_pago> td_pagos
-		{
-			get
-			{
-				return this._td_pagos;
-			}
-			set
-			{
-				this._td_pagos.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tm_usuario_td_poliza", Storage="_td_polizas", ThisKey="id_usuario", OtherKey="id_usuario")]
-		public EntitySet<td_poliza> td_polizas
-		{
-			get
-			{
-				return this._td_polizas;
-			}
-			set
-			{
-				this._td_polizas.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tm_usuario_td_reclamo", Storage="_td_reclamos", ThisKey="id_usuario", OtherKey="id_usuario")]
-		public EntitySet<td_reclamo> td_reclamos
-		{
-			get
-			{
-				return this._td_reclamos;
-			}
-			set
-			{
-				this._td_reclamos.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_td_cotizacions(td_cotizacion entity)
-		{
-			this.SendPropertyChanging();
-			entity.tm_usuario = this;
-		}
-		
-		private void detach_td_cotizacions(td_cotizacion entity)
-		{
-			this.SendPropertyChanging();
-			entity.tm_usuario = null;
-		}
-		
-		private void attach_td_pagos(td_pago entity)
-		{
-			this.SendPropertyChanging();
-			entity.tm_usuario = this;
-		}
-		
-		private void detach_td_pagos(td_pago entity)
-		{
-			this.SendPropertyChanging();
-			entity.tm_usuario = null;
-		}
-		
-		private void attach_td_polizas(td_poliza entity)
-		{
-			this.SendPropertyChanging();
-			entity.tm_usuario = this;
-		}
-		
-		private void detach_td_polizas(td_poliza entity)
-		{
-			this.SendPropertyChanging();
-			entity.tm_usuario = null;
-		}
-		
-		private void attach_td_reclamos(td_reclamo entity)
-		{
-			this.SendPropertyChanging();
-			entity.tm_usuario = this;
-		}
-		
-		private void detach_td_reclamos(td_reclamo entity)
-		{
-			this.SendPropertyChanging();
-			entity.tm_usuario = null;
 		}
 	}
 }

@@ -120,7 +120,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CompraController.cs" />
+    <Compile Include="Controllers\CotizacionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PolizaController.cs" />
+    <Compile Include="Controllers\ReclamacionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -174,11 +178,11 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Cotizacion.cshtml" />
+    <Content Include="Views\Cotizacion\Cotizacion.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Compra.cshtml" />
-    <Content Include="Views\Home\Reclamacion.cshtml" />
-    <Content Include="Views\Home\GestionPoliza.cshtml" />
+    <Content Include="Views\Compra\Compra.cshtml" />
+    <Content Include="Views\Reclamacion\Reclamacion.cshtml" />
+    <Content Include="Views\Poliza\GestionPoliza.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
