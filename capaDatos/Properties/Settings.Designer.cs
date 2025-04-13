@@ -12,7 +12,7 @@ namespace capaDatos.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.12.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.13.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -26,11 +26,23 @@ namespace capaDatos.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=OSCAR\\SQLEXPRESS;Initial Catalog=turismo_seguro;Integrated Security=T" +
-            "rue;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DESKTOP-TP2MS93\\SQLEXPRESS;Initial Catalog=turismo_seguro;Integrated " +
+            "Security=True;Connect Timeout=30;Encrypt=True;TrustServerCertificate=True")]
         public string turismo_seguroConnectionString {
             get {
                 return ((string)(this["turismo_seguroConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=turismoseguroserver2.database.windows.net;Initial Catalog=turismosegu" +
+            "ro_db;User ID=grupo1;Password=Hugaso16;Connect Timeout=60;Encrypt=True;TrustServ" +
+            "erCertificate=False")]
+        public string turismoseguro_dbConnectionString {
+            get {
+                return ((string)(this["turismoseguro_dbConnectionString"]));
             }
         }
     }
