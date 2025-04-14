@@ -5,47 +5,52 @@ using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using capaDatos.Database;
+using capaModelo.DTO;
 
 namespace capaNegocios.Acciones
 {
     public class AccionReclamaciones : AccionesBases
     {
 
-        public bool RegistrarReclamacion(int idUsuario, int idPoliza, string descripcion)
-        {
-            try
+            private readonly DbLibraryEntityDataContext _context = new DbLibraryEntityDataContext();
+
+            public void Registrar(ReclamacionDTO dto)
             {
-                td_reclamo nuevoReclamo = new td_reclamo();
-                nuevoReclamo.id_usuario = idUsuario;
-                nuevoReclamo.id_poliza = idPoliza;
-                nuevoReclamo.descripcion = descripcion;
-                nuevoReclamo.fecha_reclamo = DateTime.Now;
-                nuevoReclamo.estado = "En Proceso";
-                nuevoReclamo.creada_en = DateTime.Now;
-                nuevoReclamo.flag_activo = true;
+                var entidad = new td_reclamacione
+                {
+                    id_poliza = dto.IdPoliza,
+                    id_motivo = dto.IdMotivo > 0 ? dto.IdMotivo : 1, // Motivo por defecto si no viene
+                    descripcion = dto.Descripcion,
+                    documento = dto.Documento,
+                    estado = "pendiente",
+                    id_agente = dto.IdAgente,
+                    fecha_reclamo = DateTime.Now
+                };
 
-                _DbContextSeguros.td_reclamos.InsertOnSubmit(nuevoReclamo);
-                _DbContextSeguros.SubmitChanges();
-                return true;
-
-                 
+                _context.td_reclamaciones.InsertOnSubmit(entidad);
+                _context.SubmitChanges();
             }
-            catch (Exception)
+
+            public List<ReclamacionDTO> ObtenerPorUsuario(int idUsuario)
             {
-                return false;
+                var query = from r in _context.td_reclamaciones
+                    join p in _context.td_polizas on r.id_poliza equals p.id_poliza
+                    join c in _context.td_compras on p.id_compra equals c.id_compra
+                    where c.id_usuario == idUsuario
+                    select new ReclamacionDTO
+                    {
+                        IdReclamacion = r.id_reclamacion,
+                        IdPoliza = r.id_poliza,
+                        IdMotivo = r.id_motivo,
+                        Descripcion = r.descripcion,
+                        Documento = r.documento,
+                        Estado = r.estado,
+                        IdAgente = r.id_agente,
+                        FechaReclamo = r.fecha_reclamo
+                    };
+
+                return query.ToList();
             }
-        }
-
-        public List<td_reclamo> ObtenerReclamacionesPorUsuario(int idUsuario)
-        {
-
-            var consulta = from reclamo in _DbContextSeguros.td_reclamos
-                           where reclamo.id_usuario == idUsuario && reclamo.flag_activo == true
-                           select reclamo;
-            return consulta.ToList();
-            
-        }
-
-
+        
     }
 }

@@ -1,15 +1,43 @@
-﻿@model capaModelo.VistaInicioModelo
+@model System.Collections.Generic.List<capaModelo.DTO.PaqueteDTO>
+
 @{
-    ViewBag.Title = Model.TituloPagina;
+    ViewBag.Title = "Explora Paquetes Turísticos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Index", "Home", FormMethod.Get))
+{
+    <div class="row">
+        <div class="col-md-3">
+            <input type="text" name="destino" class="form-control" placeholder="Destino" />
+        </div>
+        <div class="col-md-3">
+            <input type="number" name="duracionMin" class="form-control" placeholder="Mín. días" />
+        </div>
+        <div class="col-md-3">
+            <input type="number" name="edad" class="form-control" placeholder="Edad del viajero" />
+        </div>
+        <div class="col-md-3">
+            <input type="number" name="personas" class="form-control" placeholder="# Personas" />
+        </div>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Filtrar</button>
 }
 
-<h2>@Model.TituloPagina</h2>
-<p>@Model.MensajeBienvenida</p>
+<h2>Paquetes Turísticos Disponibles</h2>
 
-<h3>Promociones Destacadas</h3>
-<ul>
-    @foreach (var promo in Model.PromocionesDestacadas)
+<div class="row">
+    @foreach (var paquete in Model)
     {
-        <li>@promo</li>
+        <div class="col-md-4 mb-3">
+            <div class="card p-3 shadow-sm">
+                <h4>@paquete.NombrePaquete</h4>
+                <p>@paquete.Descripcion</p>
+                <p><strong>Duración:</strong> @paquete.DuracionDias días</p>
+                <p><strong>Precio Base:</strong> RD$@paquete.PrecioBase.ToString("N2")</p>
+                <p><strong>Tipo:</strong> @paquete.TipoPaquete</p>
+                <a href="@Url.Action("Detalle", "Home", new { id = paquete.IdPaquete })" class="btn btn-primary">Ver Detalle</a>
+            </div>
+        </div>
     }
-</ul>
+</div>

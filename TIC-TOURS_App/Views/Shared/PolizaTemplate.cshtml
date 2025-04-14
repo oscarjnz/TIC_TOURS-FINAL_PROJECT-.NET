@@ -1,0 +1,25 @@
+@model capaModelo.DTO.PolizaDTO
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <style>
+        body { font-family: Arial; margin: 30px; }
+        h1 { text-align: center; }
+        .info { margin-top: 20px; }
+        .label { font-weight: bold; }
+        .box { border: 1px solid #ccc; padding: 15px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+<h1>Póliza de Seguro - Turismo Seguro</h1>
+<div class="box">
+    <p><span class="label">Número de Póliza:</span> @Model.NumeroPoliza</p>
+    <p><span class="label">Compra ID:</span> @Model.IdCompra</p>
+    <p><span class="label">Cobertura ID:</span> @Model.IdCobertura</p>
+    <p><span class="label">Fecha de Inicio:</span> @Model.FechaInicio.ToShortDateString()</p>
+    <p><span class="label">Fecha de Fin:</span> @Model.FechaFin.ToShortDateString()</p>
+    <p><span class="label">Estado:</span> @Model.Estado</p>
+</div>
+</body>
+</html>

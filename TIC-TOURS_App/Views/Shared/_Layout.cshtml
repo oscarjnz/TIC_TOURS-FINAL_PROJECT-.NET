@@ -1,40 +1,68 @@
-﻿<!DOCTYPE html>
+﻿@using capaModelo.DTO
+@{
+    var usuario = Session["Usuario"] as UsuarioDTO;
+    var isAdmin = usuario != null && usuario.IdRol == 1; 
+    string nombreUsuario = usuario != null ? usuario.Nombre + " " + usuario.Apellido : "Invitado";
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Turismo Seguro</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
-        <div class="container">
-            @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Compra", "Compra", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Polizas", "Polizas", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Reclamaciones", "Reclamaciones", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                </ul>
-            </div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm mb-4">
+    <div class="container">
+        <a class="navbar-brand" href="@Url.Action("Index", "Portal")">Turismo Seguro</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navCollapse"
+                aria-controls="navCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">@Html.ActionLink("Inicio", "Index", "Home", null, new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Mis Pólizas", "MisPolizas", "Perfil", null, new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Perfil", "Datos", "Perfil", null, new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Reclamaciones", "MisReclamaciones", "Reclamacion", null, new { @class = "nav-link" })</li>
+                @if (isAdmin)
+                {
+                    <li class="nav-item">@Html.ActionLink("Backoffice", "Index", "Backoffice", null, new { @class = "nav-link" })</li>
+                }
+            </ul>
+            <ul class="navbar-nav">
+                @if (usuario != null)
+                {
+                    <li class="nav-item">
+                        <span class="navbar-text text-light me-2">@nombreUsuario</span>
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Cerrar sesión", "Logout", "Usuario", null, new { @class = "nav-link" })
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">@Html.ActionLink("Iniciar sesión", "Login", "Usuario", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Registrarse", "Registro", "Usuario", null, new { @class = "nav-link" })</li>
+                }
+            </ul>
         </div>
-    </nav>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
     </div>
+</nav>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+<div class="container body-content">
+    @RenderBody()
+    <hr />
+    <footer class="text-center text-muted small mb-3">
+        <p>&copy; @DateTime.Now.Year - Turismo Seguro</p>
+    </footer>
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
 </body>
 </html>

@@ -1,0 +1,39 @@
+@{
+    ViewBag.Title = "Resultado de Cotización";
+    var paquete = (capaModelo.DTO.PaqueteDTO)ViewBag.Paquete;
+    var servicios = ViewBag.Servicios as string[];
+}
+
+<h2>Resultado de Cotización</h2>
+
+<div class="card p-4 shadow-sm mb-3">
+    <h4>@paquete.NombrePaquete</h4>
+    <p><strong>Fecha de inicio:</strong> @ViewBag.FechaInicio</p>
+    <p><strong>Cantidad de personas:</strong> @ViewBag.CantidadPersonas</p>
+    <p><strong>Subtotal:</strong> RD$@ViewBag.Subtotal.ToString("N2")</p>
+
+    @if (servicios != null && servicios.Length > 0)
+    {
+        <p><strong>Servicios adicionales:</strong></p>
+        <ul>
+            @foreach (var s in servicios)
+            {
+                <li>@s</li>
+            }
+        </ul>
+        <p><strong>Total servicios extra:</strong> RD$@ViewBag.Extras.ToString("N2")</p>
+    }
+
+    <hr />
+    <h4><strong>Total:</strong> RD$@ViewBag.Total.ToString("N2")</h4>
+</div>
+<a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Volver</a>
+<form action="@Url.Action("Comprar", "Home")" method="post">
+    <input type="hidden" name="idPaquete" value="@paquete.IdPaquete" />
+    <input type="hidden" name="cantidadPersonas" value="@ViewBag.CantidadPersonas" />
+    <input type="hidden" name="total" value="@ViewBag.Total" />
+
+    <button type="submit" class="btn btn-success">Comprar ahora</button>
+</form>
+
+

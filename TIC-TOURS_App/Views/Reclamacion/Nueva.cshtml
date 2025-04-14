@@ -1,0 +1,28 @@
+@model capaModelo.DTO.ReclamacionDTO
+@{
+    ViewBag.Title = "Nueva Reclamación";
+    var polizas = (List<capaModelo.DTO.PolizaDTO>)ViewBag.Polizas;
+}
+
+<h2>Nueva Reclamación</h2>
+@using (Html.BeginForm("Nueva", "Reclamacion", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-group">
+        <label>Póliza</label>
+        <select name="IdPoliza" class="form-control">
+            @foreach (var p in polizas)
+            {
+                <option value="@p.IdPoliza">@p.NumeroPoliza</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Motivo</label>
+        <input type="text" name="Descripcion" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Documento adjunto</label>
+        <input type="file" name="documento" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Enviar</button>
+}

@@ -1,0 +1,27 @@
+@model  capaModelo.DTO.DashboardResumenDTO
+@{
+    ViewBag.Title = "Panel Administrativo";
+}
+
+<h2 class="mb-4">Dashboard Administrativo</h2>
+
+<div class="row text-center">
+    <div class="col-md-4">
+        <div class="card bg-light p-3 mb-3 shadow-sm">
+            <h4>Total Usuarios</h4>
+            <h2>@Model.TotalUsuarios</h2>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-light p-3 mb-3 shadow-sm">
+            <h4>Polizas Activas</h4>
+            <h2>@Model.PolizasActivas</h2>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-light p-3 mb-3 shadow-sm">
+            <h4>Reclamaciones Pendientes</h4>
+            <h2>@Model.ReclamacionesPendientes</h2>
+        </div>
+    </div>
+</div>

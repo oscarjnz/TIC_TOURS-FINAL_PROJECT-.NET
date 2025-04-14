@@ -1,0 +1,29 @@
+@model List<capaModelo.DTO.ReclamacionDTO>
+
+<h2>Mis Reclamaciones</h2>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Póliza</th>
+        <th>Motivo</th>
+        <th>Estado</th>
+        <th>Documento</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var r in Model)
+    {
+        <tr>
+            <td>@r.IdPoliza</td>
+            <td>@r.Descripcion</td>
+            <td>@r.Estado</td>
+            <td>
+                @if (!string.IsNullOrEmpty(r.Documento))
+                {
+                    <a href="@Url.Content("~/App_Data/Reclamaciones/" + r.Documento)" target="_blank">Ver</a>
+                }
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

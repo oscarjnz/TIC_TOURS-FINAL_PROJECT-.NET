@@ -1,0 +1,34 @@
+@{
+    ViewBag.Title = "Cotizar Paquete";
+    var paquete = (capaModelo.DTO.PaqueteDTO)ViewBag.Paquete;
+}
+
+<h2>Cotizar: @paquete.NombrePaquete</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label for="cantidadPersonas">Cantidad de personas</label>
+        <input type="number" name="cantidadPersonas" class="form-control" min="1" required />
+    </div>
+
+    <div class="form-group">
+        <label for="fechaInicio">Fecha de inicio</label>
+        <input type="date" name="fechaInicio" class="form-control" required />
+    </div>
+
+    <div class="form-group">
+        <label for="servicios">Servicios adicionales</label>
+        <select name="servicios[]" multiple class="form-control">
+            <option value="Seguro médico">Seguro médico</option>
+            <option value="Traslado aeropuerto">Traslado aeropuerto</option>
+            <option value="Tour guiado">Tour guiado</option>
+        </select>
+    </div>
+
+    <input type="hidden" name="idPaquete" value="@paquete.IdPaquete" />
+
+    <button type="submit" class="btn btn-primary">Calcular Cotización</button>
+}

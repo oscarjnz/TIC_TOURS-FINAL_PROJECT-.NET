@@ -5,68 +5,37 @@ using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using capaDatos.Database;
+using capaDatos.Funciones;
+using capaModelo.DTO;
 
 namespace capaNegocios.Acciones
 {
     public class AccionCompras : AccionesBases
     {
+     
+            private readonly CompraDAL _dal = new CompraDAL();
 
-        /// <summary>
-        /// Metodo de guardar compras
-        /// </summary>
-        /// <param name="idSeguro"></param>
-        /// <param name="precio"></param>
-        /// <param name="idUsuario"></param>
-        /// <returns></returns>
-        public bool GuardarCompra(int idSeguro, decimal precio, int idUsuario)
-        {
-            bool resultado = false;
+         
 
-            try
+            public int RegistrarCompra(CompraDTO dto)
             {
-                //buscar coincidencias
-
-                var seguros_existe = _DbContextSeguros.td_polizas.Where(x => x.id_seguro == idSeguro && x.id_seguro == idSeguro).ToList();
-
-                //validar (operador ternario)
-
-                resultado = (seguros_existe.Count > 0) ? true : false;
-
-
-                if (resultado)
+                var compra = new td_compra
                 {
-                    resultado = false;
-                    throw new ArgumentException($"El usuario tiene este seguro asignado {idSeguro}");
-                }
-                else
-                {
-                    td_poliza nuevaPoliza = new td_poliza();
-                    nuevaPoliza.id_usuario = idUsuario;
-                    nuevaPoliza.id_seguro = idSeguro;
-                    nuevaPoliza.id_cotizacion = 0;
-                    nuevaPoliza.fecha_inicio = DateTime.Now;
-                    nuevaPoliza.fecha_fin = DateTime.Now.AddYears(1);
-                    nuevaPoliza.monto = precio;
-                    nuevaPoliza.estado = "Activo";
-                    nuevaPoliza.creada_en = DateTime.Now;
-                    nuevaPoliza.flag_activo = true;
+                    id_usuario = dto.IdUsuario,
+                    id_paquete = dto.IdPaquete,
+                    id_forma_pago = dto.IdFormaPago,
+                    total = dto.Total,
+                    estado_pago = "pendiente",
+                    fecha_compra = DateTime.Now
+                };
 
-                    _DbContextSeguros.td_polizas.InsertOnSubmit(nuevaPoliza);
-                    _DbContextSeguros.SubmitChanges();
-
-                    resultado = true;
-                }
-
-                return resultado;
-                 
-            }
-            catch (Exception)
-            {
-                return false;
+                return _dal.RegistrarCompra(compra);
             }
 
-            
-        }
-
+            public void ConfirmarPago(int idCompra)
+            {
+                _dal.ConfirmarPago(idCompra);
+            }
+        
     }
 }

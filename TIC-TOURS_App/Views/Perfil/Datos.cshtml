@@ -1,0 +1,68 @@
+@model capaModelo.DTO.UsuarioDTO
+@{
+    ViewBag.Title = "Mi Perfil";
+}
+
+<h2 class="mb-4">Mi Perfil</h2>
+
+<div class="card shadow p-4">
+    @using (Html.BeginForm("ActualizarDatos", "Perfil", FormMethod.Post, new { id = "formPerfil" }))
+    {
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">Nombre</label>
+                @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control", @readonly = "readonly", id = "Nombre" })
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Apellido</label>
+                @Html.TextBoxFor(m => m.Apellido, new { @class = "form-control", @readonly = "readonly", id = "Apellido" })
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">Teléfono</label>
+                @Html.TextBoxFor(m => m.Telefono, new { @class = "form-control", @readonly = "readonly", id = "Telefono" })
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Dirección</label>
+                @Html.TextBoxFor(m => m.Direccion, new { @class = "form-control", @readonly = "readonly", id = "Direccion" })
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label class="form-label">Género</label>
+                @Html.TextBoxFor(m => m.Genero, new { @class = "form-control", @readonly = "readonly", id = "Genero" })
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Nacionalidad</label>
+                @Html.TextBoxFor(m => m.Nacionalidad, new { @class = "form-control", @readonly = "readonly", id = "Nacionalidad" })
+            </div>
+        </div>
+
+        <div class="text-end">
+            <button type="button" class="btn btn-outline-primary me-2" id="btnEditar">Editar</button>
+            <button type="submit" class="btn btn-success d-none" id="btnGuardar">Guardar cambios</button>
+            <button type="button" class="btn btn-secondary d-none" id="btnCancelar">Cancelar</button>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        const inputs = document.querySelectorAll('#formPerfil input');
+        const btnEditar = document.getElementById('btnEditar');
+        const btnGuardar = document.getElementById('btnGuardar');
+        const btnCancelar = document.getElementById('btnCancelar');
+
+        btnEditar.addEventListener('click', () => {
+            inputs.forEach(i => i.removeAttribute('readonly'));
+            btnEditar.classList.add('d-none');
+            btnGuardar.classList.remove('d-none');
+            btnCancelar.classList.remove('d-none');
+        });
+
+        btnCancelar.addEventListener('click', () => {
+            location.reload(); // recarga para restaurar valores originales
+        });
+    </script>
+}

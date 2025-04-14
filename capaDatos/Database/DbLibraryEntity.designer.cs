@@ -2117,23 +2117,23 @@ namespace capaDatos.Database
 		
 		private int _id_poliza;
 		
-		private System.Nullable<int> _id_compra;
+		private int _id_compra;
 		
-		private System.Nullable<int> _id_cobertura;
+		private int _id_cobertura;
 		
 		private string _numero_poliza;
 		
-		private System.Nullable<System.DateTime> _fecha_inicio;
+		private System.DateTime _fecha_inicio;
 		
-		private System.Nullable<System.DateTime> _fecha_fin;
+		private System.DateTime _fecha_fin;
 		
 		private string _archivo_pdf;
 		
 		private string _estado;
 		
-		private System.Nullable<System.DateTime> _created_at;
+		private System.DateTime _created_at;
 		
-		private System.Nullable<System.DateTime> _updated_at;
+		private System.DateTime _updated_at;
 		
 		private EntitySet<td_reclamacione> _td_reclamaciones;
 		
@@ -2196,7 +2196,7 @@ namespace capaDatos.Database
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_compra", DbType="Int")]
-		public System.Nullable<int> id_compra
+		public int id_compra
 		{
 			get
 			{
@@ -2220,7 +2220,7 @@ namespace capaDatos.Database
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_cobertura", DbType="Int")]
-		public System.Nullable<int> id_cobertura
+		public int id_cobertura
 		{
 			get
 			{
@@ -2264,7 +2264,7 @@ namespace capaDatos.Database
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_fecha_inicio", DbType="Date")]
-		public System.Nullable<System.DateTime> fecha_inicio
+		public System.DateTime fecha_inicio
 		{
 			get
 			{
@@ -2284,7 +2284,7 @@ namespace capaDatos.Database
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_fecha_fin", DbType="Date")]
-		public System.Nullable<System.DateTime> fecha_fin
+		public System.DateTime fecha_fin
 		{
 			get
 			{
@@ -2344,7 +2344,7 @@ namespace capaDatos.Database
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_created_at", DbType="DateTime")]
-		public System.Nullable<System.DateTime> created_at
+		public System.DateTime created_at
 		{
 			get
 			{
@@ -2364,7 +2364,7 @@ namespace capaDatos.Database
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_updated_at", DbType="DateTime")]
-		public System.Nullable<System.DateTime> updated_at
+		public System.DateTime updated_at
 		{
 			get
 			{
@@ -2423,7 +2423,7 @@ namespace capaDatos.Database
 					}
 					else
 					{
-						this._id_compra = default(Nullable<int>);
+						this._id_compra = default(int);
 					}
 					this.SendPropertyChanged("td_compra");
 				}
@@ -2457,7 +2457,7 @@ namespace capaDatos.Database
 					}
 					else
 					{
-						this._id_cobertura = default(Nullable<int>);
+						this._id_cobertura = default(int);
 					}
 					this.SendPropertyChanged("tm_cobertura");
 				}
@@ -2505,9 +2505,9 @@ namespace capaDatos.Database
 		
 		private int _id_reclamacion;
 		
-		private System.Nullable<int> _id_poliza;
+		private int _id_poliza;
 		
-		private System.Nullable<int> _id_motivo;
+		private int _id_motivo;
 		
 		private string _descripcion;
 		
@@ -2515,9 +2515,9 @@ namespace capaDatos.Database
 		
 		private string _estado;
 		
-		private System.Nullable<int> _id_agente;
+		private int _id_agente;
 		
-		private System.Nullable<System.DateTime> _fecha_reclamo;
+		private System.DateTime _fecha_reclamo;
 		
 		private EntityRef<td_poliza> _td_poliza;
 		
@@ -2576,7 +2576,7 @@ namespace capaDatos.Database
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_poliza", DbType="Int")]
-		public System.Nullable<int> id_poliza
+		public int id_poliza
 		{
 			get
 			{
@@ -2600,7 +2600,7 @@ namespace capaDatos.Database
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_motivo", DbType="Int")]
-		public System.Nullable<int> id_motivo
+		public int id_motivo
 		{
 			get
 			{
@@ -2684,7 +2684,7 @@ namespace capaDatos.Database
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_agente", DbType="Int")]
-		public System.Nullable<int> id_agente
+		public int id_agente
 		{
 			get
 			{
@@ -2708,7 +2708,7 @@ namespace capaDatos.Database
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_fecha_reclamo", DbType="DateTime")]
-		public System.Nullable<System.DateTime> fecha_reclamo
+		public System.DateTime fecha_reclamo
 		{
 			get
 			{
@@ -2754,7 +2754,7 @@ namespace capaDatos.Database
 					}
 					else
 					{
-						this._id_poliza = default(Nullable<int>);
+						this._id_poliza = default(int);
 					}
 					this.SendPropertyChanged("td_poliza");
 				}
@@ -2788,7 +2788,7 @@ namespace capaDatos.Database
 					}
 					else
 					{
-						this._id_agente = default(Nullable<int>);
+						this._id_agente = default(int);
 					}
 					this.SendPropertyChanged("tm_agentes_soporte");
 				}
@@ -2822,7 +2822,7 @@ namespace capaDatos.Database
 					}
 					else
 					{
-						this._id_motivo = default(Nullable<int>);
+						this._id_motivo = default(int);
 					}
 					this.SendPropertyChanged("tm_motivos_reclamacion");
 				}
@@ -4008,17 +4008,17 @@ namespace capaDatos.Database
 		
 		private int _duracion_dias;
 		
-		private System.Nullable<decimal> _precio_base;
+		private decimal _precio_base;
 		
-		private System.Nullable<int> _id_destino;
+		private int _id_destino;
 		
 		private string _tipo_paquete;
 		
 		private string _estado;
 		
-		private System.Nullable<System.DateTime> _created_at;
+		private System.DateTime _created_at;
 		
-		private System.Nullable<System.DateTime> _updated_at;
+		private System.DateTime _updated_at;
 		
 		private EntitySet<td_compra> _td_compras;
 		
@@ -4138,7 +4138,7 @@ namespace capaDatos.Database
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_precio_base", DbType="Decimal(10,2)")]
-		public System.Nullable<decimal> precio_base
+		public decimal precio_base
 		{
 			get
 			{
@@ -4158,7 +4158,7 @@ namespace capaDatos.Database
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id_destino", DbType="Int")]
-		public System.Nullable<int> id_destino
+		public int id_destino
 		{
 			get
 			{
@@ -4222,7 +4222,7 @@ namespace capaDatos.Database
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_created_at", DbType="DateTime")]
-		public System.Nullable<System.DateTime> created_at
+		public DateTime created_at
 		{
 			get
 			{
@@ -4242,7 +4242,7 @@ namespace capaDatos.Database
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_updated_at", DbType="DateTime")]
-		public System.Nullable<System.DateTime> updated_at
+		public DateTime updated_at
 		{
 			get
 			{
@@ -4301,7 +4301,7 @@ namespace capaDatos.Database
 					}
 					else
 					{
-						this._id_destino = default(Nullable<int>);
+						this._id_destino = default(int);
 					}
 					this.SendPropertyChanged("tm_destino");
 				}
