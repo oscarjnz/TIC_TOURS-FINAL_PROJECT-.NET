@@ -8,8 +8,8 @@ namespace capaModelo.DTO
 {
     public class CiudadDTO
     {
-        public int IdCiudad { get; set; }
+        public int? IdCiudad { get; set; }
         public string NombreCiudad { get; set; }
-        public int IdPais { get; set; }
+        public int? IdPais { get; set; }
     }
 }

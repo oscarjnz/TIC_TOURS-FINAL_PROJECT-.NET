@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace capaModelo.DTO
 {
-    //ejemplo (no considerar)
     public class UsuarioDTO
     {
         public int IdUsuario { get; set; }
@@ -21,10 +20,10 @@ namespace capaModelo.DTO
         public string Contrasena { get; set; }
         public string Telefono { get; set; }
         public string Direccion { get; set; }
-        public int IdRol { get; set; }
+        public int? IdRol { get; set; }
         public string EstadoCuenta { get; set; }
-        public DateTime FechaRegistro { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public DateTime? FechaRegistro { get; set; }
+        public DateTime? CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
     }
 }

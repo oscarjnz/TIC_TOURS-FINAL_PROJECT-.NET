@@ -1,0 +1,20 @@
+@model capaModelo.DTO.PolizaDTO
+@{
+    ViewBag.Title = "Detalle de Póliza";
+}
+
+<h2>Detalle de Póliza</h2>
+
+<p><strong>Número:</strong> @Model.NumeroPoliza</p>
+<p><strong>Fecha Inicio:</strong> @Model.FechaInicio.ToShortDateString()</p>
+<p><strong>Fecha Fin:</strong> @Model.FechaFin.ToShortDateString()</p>
+<p><strong>Estado:</strong> @Model.Estado</p>
+
+<a href="@Url.Action("DescargarPdf", "Polizas", new { nombreArchivo = Model.ArchivoPdf })" class="btn btn-sm btn-primary">Descargar PDF</a>
+
+<hr />
+
+<h4>Cambiar Estado</h4>
+<a href="@Url.Action("CambiarEstado", "Polizas", new { id = Model.IdPoliza, nuevoEstado = "activa" })" class="btn btn-outline-success btn-sm">Activa</a>
+<a href="@Url.Action("CambiarEstado", "Polizas", new { id = Model.IdPoliza, nuevoEstado = "expirada" })" class="btn btn-outline-warning btn-sm">Expirada</a>
+<a href="@Url.Action("CambiarEstado", "Polizas", new { id = Model.IdPoliza, nuevoEstado = "cancelada" })" class="btn btn-outline-danger btn-sm">Cancelada</a>

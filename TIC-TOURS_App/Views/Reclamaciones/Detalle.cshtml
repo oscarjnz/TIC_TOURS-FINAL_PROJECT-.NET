@@ -1,0 +1,26 @@
+@model capaModelo.DTO.ReclamacionDTO
+@{
+    ViewBag.Title = "Detalle de Reclamación";
+}
+
+<h2>Detalle de Reclamación</h2>
+
+<p><strong>Poliza:</strong> @Model.IdPoliza</p>
+<p><strong>Motivo:</strong> @Model.Descripcion</p>
+<p><strong>Estado:</strong> @Model.Estado</p>
+<p><strong>Fecha:</strong> @Model.FechaReclamo.ToShortDateString()</p>
+
+@if (!string.IsNullOrEmpty(Model.Documento))
+{
+    <p><strong>Documento:</strong>
+        <a href="@Url.Action("DescargarDocumento", "Reclamaciones", new { nombreArchivo = Model.Documento })" target="_blank" class="btn btn-outline-dark btn-sm">Ver documento</a>
+    </p>
+}
+
+<hr />
+
+<h4>Cambiar Estado</h4>
+<a href="@Url.Action("CambiarEstado", "Reclamaciones", new { id = Model.IdReclamacion, nuevoEstado = "en revisión" })" class="btn btn-outline-warning btn-sm">En Revisión</a>
+<a href="@Url.Action("CambiarEstado", "Reclamaciones", new { id = Model.IdReclamacion, nuevoEstado = "aceptada" })" class="btn btn-outline-success btn-sm">Aceptar</a>
+<a href="@Url.Action("CambiarEstado", "Reclamaciones", new { id = Model.IdReclamacion, nuevoEstado = "rechazada" })" class="btn btn-outline-danger btn-sm">Rechazar</a>
+

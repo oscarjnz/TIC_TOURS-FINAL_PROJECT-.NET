@@ -1,0 +1,20 @@
+@model capaModelo.DTO.PaisDTO
+@{
+    ViewBag.Title = Model.IdPais > 0 ? "Editar País" : "Nuevo País";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.NombrePais)
+        @Html.TextBoxFor(m => m.NombrePais, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.CodigoIso)
+        @Html.TextBoxFor(m => m.CodigoIso, new { @class = "form-control" })
+    </div>
+    <button class="btn btn-success">Guardar</button>
+    <a href="@Url.Action("Index", "Paises")" class="btn btn-secondary">Cancelar</a>
+}

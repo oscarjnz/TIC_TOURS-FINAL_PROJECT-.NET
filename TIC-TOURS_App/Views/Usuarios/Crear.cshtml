@@ -1,0 +1,38 @@
+@model capaModelo.DTO.UsuarioDTO
+@{
+    ViewBag.Title = Model.IdUsuario == 0 ? "Nuevo Usuario" : "Editar Usuario";
+    var roles = ViewBag.Roles as List<capaModelo.DTO.RolDTO> ?? new List<capaModelo.DTO.RolDTO>();
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Nombre)
+        @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Apellido)
+        @Html.TextBoxFor(m => m.Apellido, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.CorreoElectronico)
+        @Html.TextBoxFor(m => m.CorreoElectronico, new { @class = "form-control", type = "email" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Contrasena)
+        @Html.PasswordFor(m => m.Contrasena, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Rol")
+        <select name="IdRol" class="form-control">
+            @foreach (var r in roles)
+            {
+                <option value="@r.IdRol" @(Model.IdRol == r.IdRol ? "selected" : "")>@r.NombreRol</option>
+            }
+        </select>
+    </div>
+    <button class="btn btn-success">Guardar</button>
+    <a href="@Url.Action("Index", "Usuarios")" class="btn btn-secondary">Cancelar</a>
+}

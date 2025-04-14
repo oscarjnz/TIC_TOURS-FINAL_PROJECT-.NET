@@ -1,0 +1,52 @@
+@model List<capaModelo.DTO.ReclamacionDTO>
+@{
+    ViewBag.Title = "Gestión de Reclamaciones";
+}
+
+<h2>Reclamaciones</h2>
+
+<form class="row mb-3">
+    <div class="col-md-4">
+        <input type="text" name="motivo" class="form-control" placeholder="Buscar por descripción..." value="@ViewBag.Motivo" />
+    </div>
+    <div class="col-md-4">
+        <select name="estado" class="form-control">
+            <option value="">-- Estado --</option>
+            <option value="pendiente" @(ViewBag.Estado == "pendiente" ? "selected" : "")>Pendiente</option>
+            <option value="en revisión" @(ViewBag.Estado == "en revisión" ? "selected" : "")>En revisión</option>
+            <option value="aceptada" @(ViewBag.Estado == "aceptada" ? "selected" : "")>Aceptada</option>
+            <option value="rechazada" @(ViewBag.Estado == "rechazada" ? "selected" : "")>Rechazada</option>
+        </select>
+    </div>
+    <div class="col-md-4">
+        <button type="submit" class="btn btn-primary">Filtrar</button>
+    </div>
+</form>
+
+<table class="table table-bordered table-hover">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Poliza</th>
+        <th>Motivo</th>
+        <th>Fecha</th>
+        <th>Estado</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var r in Model)
+    {
+        <tr>
+            <td>@r.IdReclamacion</td>
+            <td>@r.IdPoliza</td>
+            <td>@r.Descripcion</td>
+            <td>@r.FechaReclamo.ToShortDateString()</td>
+            <td>@r.Estado</td>
+            <td>
+                <a href="@Url.Action("Detalle", "Reclamaciones", new { id = r.IdReclamacion })" class="btn btn-sm btn-info">Ver</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

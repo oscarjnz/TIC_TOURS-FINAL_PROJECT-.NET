@@ -1,0 +1,45 @@
+@model capaModelo.DTO.UsuarioDTO
+@{
+    ViewBag.Title = "Detalle Cliente";
+    var polizas = (List<capaModelo.DTO.PolizaDTO>)ViewBag.Polizas;
+    var reclamos = (List<capaModelo.DTO.ReclamacionDTO>)ViewBag.Reclamaciones;
+}
+
+<h2>Datos del Cliente</h2>
+<p><strong>Nombre:</strong> @Model.Nombre @Model.Apellido</p>
+<p><strong>Correo:</strong> @Model.CorreoElectronico</p>
+<p><strong>Documento:</strong> @Model.NumeroDocumento</p>
+<p><strong>Estado:</strong> @Model.EstadoCuenta</p>
+
+<hr />
+
+<h3>Pólizas</h3>
+<table class="table">
+    <thead><tr><th>#</th><th>Inicio</th><th>Fin</th><th>Estado</th></tr></thead>
+    <tbody>
+    @foreach (var p in polizas)
+    {
+        <tr>
+            <td>@p.NumeroPoliza</td>
+            <td>@p.FechaInicio.ToShortDateString()</td>
+            <td>@p.FechaFin.ToShortDateString()</td>
+            <td>@p.Estado</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<h3>Reclamaciones</h3>
+<table class="table">
+    <thead><tr><th>Motivo</th><th>Estado</th><th>Fecha</th></tr></thead>
+    <tbody>
+    @foreach (var r in reclamos)
+    {
+        <tr>
+            <td>@r.Descripcion</td>
+            <td>@r.Estado</td>
+            <td>@r.FechaReclamo.ToShortDateString()</td>
+        </tr>
+    }
+    </tbody>
+</table>

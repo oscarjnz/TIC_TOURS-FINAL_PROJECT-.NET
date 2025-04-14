@@ -4,7 +4,7 @@ using capaNegocios.Filtros;
 
 namespace TIC_TOURS_App.Controllers
 {
-    [AutorizarUsuario(Rol = "Administrador")]
+    [AutorizarUsuario(Rol = 1)]
     public class BackOfficeController : Controller
     {
         public ActionResult Index()

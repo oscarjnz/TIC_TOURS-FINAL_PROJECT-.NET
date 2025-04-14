@@ -5,13 +5,10 @@ namespace capaDatos.Funciones
 {
     public class UsuarioDAL
     {
-        private readonly DbLibraryEntityDataContext _context;
+        private readonly DbLibraryEntityDataContext _context = new DbLibraryEntityDataContext();
         
 
-        public UsuarioDAL()
-        {
-            _context = new DbLibraryEntityDataContext();
-        }
+      
 
         public void RegistrarUsuario(tm_usuario entidad)
         {

@@ -1,0 +1,27 @@
+@model List<capaModelo.DTO.CiudadDTO>
+@{
+    ViewBag.Title = "Ciudades";
+}
+
+<h2>Ciudades</h2>
+
+<a href="@Url.Action("Crear", "Ciudades")" class="btn btn-success mb-3">Nueva Ciudad</a>
+
+<table class="table">
+    <thead>
+    <tr><th>Ciudad</th><th>ID País</th><th></th></tr>
+    </thead>
+    <tbody>
+    @foreach (var c in Model)
+    {
+        <tr>
+            <td>@c.NombreCiudad</td>
+            <td>@c.IdPais</td>
+            <td>
+                <a href="@Url.Action("Editar", "Ciudades", new { id = c.IdCiudad })" class="btn btn-sm btn-primary">Editar</a>
+                <a href="@Url.Action("Eliminar", "Ciudades", new { id = c.IdCiudad })" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar ciudad?')">Eliminar</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

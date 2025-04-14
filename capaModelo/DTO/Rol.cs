@@ -11,7 +11,7 @@ namespace capaModelo.DTO
         public int IdRol { get; set; }
         public string NombreRol { get; set; }
         public string Descripcion { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
     }
 }

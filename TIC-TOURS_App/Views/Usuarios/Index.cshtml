@@ -1,0 +1,35 @@
+@model List<capaModelo.DTO.UsuarioDTO>
+@{
+    ViewBag.Title = "Usuarios Internos";
+}
+
+<h2>Usuarios Internos</h2>
+
+<a href="@Url.Action("Crear", "Usuarios")" class="btn btn-success mb-3">Nuevo Usuario</a>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Nombre</th>
+        <th>Correo</th>
+        <th>Rol</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var u in Model)
+    {
+        <tr>
+            <td>@u.Nombre @u.Apellido</td>
+            <td>@u.CorreoElectronico</td>
+            <td>@u.IdRol</td>
+            <td>@u.EstadoCuenta</td>
+            <td>
+                <a href="@Url.Action("Editar", "Usuarios", new { id = u.IdUsuario })" class="btn btn-sm btn-primary">Editar</a>
+                <a href="@Url.Action("CambiarEstado", "Usuarios", new { id = u.IdUsuario })" class="btn btn-sm btn-warning">@((u.EstadoCuenta == "activo") ? "Suspender" : "Activar")</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

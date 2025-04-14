@@ -1,0 +1,27 @@
+@model capaModelo.DTO.CiudadDTO
+@{
+    ViewBag.Title =  "Nueva Ciudad";
+    var paises = (List<capaModelo.DTO.PaisDTO>)ViewBag.Paises;
+
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.NombreCiudad)
+        @Html.TextBoxFor(m => m.NombreCiudad, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.Label("País")
+        <select name="IdPais" class="form-control">
+            @foreach (var p in paises)
+            {
+                <option value="@p.IdPais" @(Model.IdPais == p.IdPais ? "selected" : "")>@p.NombrePais</option>
+            }
+        </select>
+    </div>
+    <button class="btn btn-success">Guardar</button>
+    <a href="@Url.Action("Index", "Ciudades")" class="btn btn-secondary">Cancelar</a>
+}

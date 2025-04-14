@@ -1,0 +1,47 @@
+@model capaModelo.DTO.PaqueteDTO
+@{
+    ViewBag.Title = Model.IdPaquete > 0 ? "Editar Paquete" : "Nuevo Paquete";
+    var ciudades = (List<capaModelo.DTO.CiudadDTO>)ViewBag.Ciudades;
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        @Html.LabelFor(x => x.NombrePaquete)
+        @Html.TextBoxFor(x => x.NombrePaquete, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Descripcion)
+        @Html.TextAreaFor(x => x.Descripcion, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.DuracionDias)
+        @Html.TextBoxFor(x => x.DuracionDias, new { @class = "form-control", type = "number" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.PrecioBase)
+        @Html.TextBoxFor(x => x.PrecioBase, new { @class = "form-control", type = "number", step = "0.01" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.TipoPaquete)
+        @Html.DropDownListFor(x => x.TipoPaquete, new SelectList(new[] { "económico", "estándar", "premium" }), "Seleccionar", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Estado)
+        @Html.DropDownListFor(x => x.Estado, new SelectList(new[] { "activo", "inactivo" }), "Seleccionar", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Destino (Ciudad)")
+        <select name="IdDestino" class="form-control">
+            @foreach (var c in ciudades)
+            {
+                <option value="@c.IdCiudad" @(Model.IdDestino == c.IdCiudad ? "selected" : "")>@c.NombreCiudad</option>
+            }
+        </select>
+    </div>
+
+    <button class="btn btn-success">Guardar</button>
+    <a href="@Url.Action("Index", "Paquetes")" class="btn btn-secondary">Cancelar</a>
+}

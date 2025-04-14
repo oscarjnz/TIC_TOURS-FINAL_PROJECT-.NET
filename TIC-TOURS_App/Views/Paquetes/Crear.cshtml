@@ -1,0 +1,49 @@
+@model capaModelo.DTO.PaqueteDTO
+@{
+    ViewBag.Title = "Nuevo Paquete Turístico";
+    var ciudades = ViewBag.Ciudades as List<capaModelo.DTO.CiudadDTO> ?? new List<capaModelo.DTO.CiudadDTO>();
+    var destinos = ViewBag.Destinos as List<capaModelo.DTO.DestinoDTO> ?? new List<capaModelo.DTO.DestinoDTO>();
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        @Html.LabelFor(x => x.NombrePaquete)
+        @Html.TextBoxFor(x => x.NombrePaquete, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Descripcion)
+        @Html.TextAreaFor(x => x.Descripcion, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.DuracionDias)
+        @Html.TextBoxFor(x => x.DuracionDias, new { @class = "form-control", type = "number" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.PrecioBase)
+        @Html.TextBoxFor(x => x.PrecioBase, new { @class = "form-control", type = "number", step = "0.01" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.TipoPaquete)
+        @Html.DropDownListFor(x => x.TipoPaquete, new SelectList(new[] { "económico", "estándar", "premium" }), "Seleccionar", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x => x.Estado)
+        @Html.DropDownListFor(x => x.Estado, new SelectList(new[] { "activo", "inactivo" }), "Seleccionar", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.Label("Destino Turístico")
+        <select name="IdDestino" class="form-control">
+            @foreach (var d in destinos)
+            {
+                <option value="@d.IdDestino" @(Model.IdDestino == d.IdDestino ? "selected" : "")>
+                    @d.NombreDestino
+                </option>
+            }
+        </select>
+    </div>
+    <button class="btn btn-success">Guardar</button>
+    <a href="@Url.Action("Index", "Paquetes")" class="btn btn-secondary">Cancelar</a>
+}

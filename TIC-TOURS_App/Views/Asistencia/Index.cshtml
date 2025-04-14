@@ -1,0 +1,43 @@
+
+@model List<capaModelo.DTO.AgenteSoporteDTO>
+@{
+    ViewBag.Title = "Asistencia al Viajero";
+}
+<h2 class="mb-4">Asistencia al Viajero</h2>
+
+<div class="alert alert-info">
+    Nuestro equipo de soporte está disponible para ayudarte durante tu viaje.
+</div>
+
+@foreach (var agente in Model)
+{
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">@agente.NombreAgente</h5>
+            <p><strong>Correo:</strong> <a href="mailto:@agente.Correo">@agente.Correo</a></p>
+            <p><strong>Teléfono:</strong> <a href="tel:@agente.Telefono">@agente.Telefono</a></p>
+            <a href="https://wa.me/@agente.Telefono" target="_blank" class="btn btn-success">WhatsApp</a>
+        </div>
+    </div>
+}
+
+
+<hr />
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <h4>Correo de soporte</h4>
+        <p>atencion@turismoseguro.com</p>
+        <a href="mailto:atencion@turismoseguro.com" class="btn btn-secondary">Enviar Correo</a>
+    </div>
+
+    <div class="col-md-6">
+        <h4>Información de emergencia por país</h4>
+        <ul>
+            <li>República Dominicana: <strong>911</strong></li>
+            <li>Estados Unidos: <strong>911</strong></li>
+            <li>México: <strong>911</strong></li>
+            <li>España: <strong>112</strong></li>
+        </ul>
+    </div>
+</div>

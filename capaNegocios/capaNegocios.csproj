@@ -193,9 +193,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Acciones\AccionAsistencia.cs" />
     <Compile Include="Acciones\AccionBackoffice.cs" />
     <Compile Include="Acciones\AccionCompras.cs" />
     <Compile Include="Acciones\AccionCotizaciones.cs" />
+    <Compile Include="Acciones\AccionesBackoffice\AccionCiudadBackoffice.cs" />
+    <Compile Include="Acciones\AccionesBackoffice\AccionPaisBackoffice.cs" />
+    <Compile Include="Acciones\AccionesBackoffice\AccionPaquetesBackoffice.cs" />
+    <Compile Include="Acciones\AccionesBackoffice\AccionPoliza.cs" />
+    <Compile Include="Acciones\AccionesBackoffice\AccionReclamacion.cs" />
+    <Compile Include="Acciones\AccionesBackoffice\AccionRol.cs" />
+    <Compile Include="Acciones\AccionesBackoffice\AccionUsuario.cs" />
     <Compile Include="Acciones\AccionesBases.cs" />
     <Compile Include="Acciones\AccionPaquetes.cs" />
     <Compile Include="Acciones\AccionPerfil.cs" />

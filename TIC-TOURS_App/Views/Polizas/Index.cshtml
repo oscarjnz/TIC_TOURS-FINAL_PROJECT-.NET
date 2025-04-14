@@ -1,0 +1,50 @@
+@model List<capaModelo.DTO.PolizaDTO>
+@{
+    ViewBag.Title = "Gestión de Pólizas";
+}
+
+<h2>Gestión de Pólizas</h2>
+
+<form method="get" class="mb-3 row">
+    <div class="col-md-4">
+        <input type="text" name="numero" class="form-control" placeholder="Número de póliza" value="@ViewBag.Numero" />
+    </div>
+    <div class="col-md-4">
+        <select name="estado" class="form-control">
+            <option value="">-- Estado --</option>
+            <option value="activa" @(ViewBag.Estado == "activa" ? "selected" : "")>Activa</option>
+            <option value="expirada" @(ViewBag.Estado == "expirada" ? "selected" : "")>Expirada</option>
+            <option value="cancelada" @(ViewBag.Estado == "cancelada" ? "selected" : "")>Cancelada</option>
+        </select>
+    </div>
+    <div class="col-md-4">
+        <button type="submit" class="btn btn-primary">Filtrar</button>
+    </div>
+</form>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th># Póliza</th>
+        <th>Inicio</th>
+        <th>Fin</th>
+        <th>Estado</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var p in Model)
+    {
+        <tr>
+            <td>@p.NumeroPoliza</td>
+            <td>@p.FechaInicio.ToShortDateString()</td>
+            <td>@p.FechaFin.ToShortDateString()</td>
+            <td>@p.Estado</td>
+            <td>
+                <a href="@Url.Action("Detalle", "Polizas", new { id = p.IdPoliza })" class="btn btn-sm btn-info">Ver</a>
+                <a href="@Url.Action("DescargarPdf", "Polizas", new { nombreArchivo = p.ArchivoPdf })" class="btn btn-sm btn-success">PDF</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

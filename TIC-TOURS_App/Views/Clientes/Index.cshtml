@@ -1,0 +1,44 @@
+@model List<capaModelo.DTO.UsuarioDTO>
+@{
+    ViewBag.Title = "Clientes";
+}
+
+<h2>Clientes Registrados</h2>
+
+<form class="mb-3">
+    <input type="text" name="buscar" class="form-control" placeholder="Buscar por nombre, correo, documento..." value="@ViewBag.Buscar" />
+</form>
+
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+        <th>Nombre</th>
+        <th>Correo</th>
+        <th>Estado</th>
+        <th>Fecha Registro</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var c in Model)
+    {
+        <tr>
+            <td>@c.Nombre @c.Apellido</td>
+            <td>@c.CorreoElectronico</td>
+            <td>@c.EstadoCuenta</td>
+            <td>@c.FechaRegistro</td>
+            <td>
+                <a href="@Url.Action("Detalle", "Clientes", new { id = c.IdUsuario })" class="btn btn-sm btn-primary">Ver</a>
+                @if (c.EstadoCuenta == "activo")
+                {
+                    <a href="@Url.Action("Suspender", "Clientes", new { id = c.IdUsuario })" class="btn btn-sm btn-warning">Suspender</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Activar", "Clientes", new { id = c.IdUsuario })" class="btn btn-sm btn-success">Activar</a>
+                }
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

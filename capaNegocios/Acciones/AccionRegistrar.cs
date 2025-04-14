@@ -59,9 +59,9 @@ namespace capaNegocios.Acciones
                     Direccion = entidad.direccion,
                     IdRol = entidad.id_rol ?? 2,
                     EstadoCuenta = entidad.estado_cuenta,
-                    FechaRegistro = entidad.fecha_registro ?? DateTime.Now,
-                    CreatedAt = entidad.created_at ?? DateTime.Now,
-                    UpdatedAt = entidad.updated_at ?? DateTime.Now
+                    FechaRegistro = entidad.fecha_registro ,
+                    CreatedAt = entidad.created_at ,
+                    UpdatedAt = entidad.updated_at
                 };
             }
         }
