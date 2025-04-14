@@ -1,39 +1,230 @@
+@using capaModelo.DTO
 @{
     ViewBag.Title = "Resultado de Cotización";
     var paquete = (capaModelo.DTO.PaqueteDTO)ViewBag.Paquete;
-    var servicios = ViewBag.Servicios as string[];
+    var servicios = ViewBag.Servicios as List<ServicioExtraDTO>;
 }
 
-<h2>Resultado de Cotización</h2>
-
-<div class="card p-4 shadow-sm mb-3">
-    <h4>@paquete.NombrePaquete</h4>
-    <p><strong>Fecha de inicio:</strong> @ViewBag.FechaInicio</p>
-    <p><strong>Cantidad de personas:</strong> @ViewBag.CantidadPersonas</p>
-    <p><strong>Subtotal:</strong> RD$@ViewBag.Subtotal.ToString("N2")</p>
-
-    @if (servicios != null && servicios.Length > 0)
-    {
-        <p><strong>Servicios adicionales:</strong></p>
-        <ul>
-            @foreach (var s in servicios)
-            {
-                <li>@s</li>
-            }
-        </ul>
-        <p><strong>Total servicios extra:</strong> RD$@ViewBag.Extras.ToString("N2")</p>
-    }
-
-    <hr />
-    <h4><strong>Total:</strong> RD$@ViewBag.Total.ToString("N2")</h4>
+<!-- Encabezado con imagen de fondo -->
+<div class="relative py-12 bg-gradient-to-r from-orange-600 to-orange-400">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center">
+            <h1 class="text-3xl font-extrabold text-black sm:text-4xl">
+                Resultado de Cotización
+            </h1>
+            <p class="mt-3 max-w-md mx-auto text-base text-black text-opacity-80 sm:text-lg md:mt-5">
+                Revisa los detalles de tu cotización y completa tu reserva
+            </p>
+        </div>
+    </div>
 </div>
-<a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Volver</a>
-<form action="@Url.Action("Comprar", "Home")" method="post">
-    <input type="hidden" name="idPaquete" value="@paquete.IdPaquete" />
-    <input type="hidden" name="cantidadPersonas" value="@ViewBag.CantidadPersonas" />
-    <input type="hidden" name="total" value="@ViewBag.Total" />
 
-    <button type="submit" class="btn btn-success">Comprar ahora</button>
-</form>
+<!-- Contenido principal -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="lg:grid lg:grid-cols-3 lg:gap-8">
+        <!-- Columna izquierda: Detalles de la cotización -->
+        <div class="lg:col-span-2">
+            <div class="bg-white rounded-xl shadow-md overflow-hidden mb-8">
+                <div class="p-6 md:p-8">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-2xl font-bold text-gray-900">Detalles de la cotización</h2>
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                            Cotización lista
+                        </span>
+                    </div>
+                    
+                    <!-- Información del paquete -->
+                    <div class="flex items-start space-x-4 mb-8">
+                        <div class="flex-shrink-0 h-20 w-20 rounded-md overflow-hidden">
+                            <img src="@paquete.foto" alt="@paquete.NombrePaquete" class="h-full w-full object-cover" />
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">@paquete.NombrePaquete</h3>
+                            <p class="text-gray-500">@paquete.TipoPaquete</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Detalles de la reserva -->
+                    <div class="bg-gray-50 rounded-lg p-4 mb-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-sm text-gray-500">Fecha de inicio</p>
+                                <p class="text-base font-medium text-gray-900">@ViewBag.FechaInicio</p>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">Cantidad de personas</p>
+                                <p class="text-base font-medium text-gray-900">@ViewBag.CantidadPersonas</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tabla de costos -->
+                    <div class="border-t border-gray-200 pt-6">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Resumen de costos</h3>
+                        
+                        <div class="space-y-3">
+                            <div class="flex justify-between">
+                                <p class="text-gray-500">Subtotal</p>
+                                <p class="text-gray-900 font-medium">RD$@ViewBag.Subtotal.ToString("N2")</p>
+                            </div>
+                            
+                            @if (servicios != null && servicios.Count > 0)
+                            {
+                                <div class="border-t border-gray-100 pt-3">
+                                    <p class="text-gray-500 mb-2">Servicios adicionales:</p>
+                                    <ul class="space-y-2 mb-3">
+                                        @foreach (var s in servicios)
+                                        {
+                                            <li class="flex justify-between">
+                                                <span class="text-gray-600">@s.NombreServicio</span>
+                                                <span class="text-gray-900">RD$@s.Precio</span>
+                                            </li>
+                                        }
+                                    </ul>
+                                    <div class="flex justify-between">
+                                        <p class="text-gray-500">Total servicios extra</p>
+                                        <p class="text-gray-900 font-medium">RD$@ViewBag.Extras.ToString("N2")</p>
+                                    </div>
+                                </div>
+                            }
+                            
+                            <div class="border-t border-gray-200 pt-3">
+                                <div class="flex justify-between items-center">
+                                    <p class="text-lg font-bold text-gray-900">Total</p>
+                                    <p class="text-2xl font-bold text-orange-600">RD$@ViewBag.Total.ToString("N2")</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Información adicional -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden mb-8">
+                <div class="p-6 md:p-8">
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">Información importante</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-gray-600">Esta cotización es válida por 24 horas.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-gray-600">Cancelación gratuita hasta 48 horas antes de la fecha de inicio.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-gray-600">Seguro de viaje incluido para todos los participantes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Columna derecha: Resumen y acciones -->
+        <div class="lg:col-span-1">
+            <div class="sticky top-8">
+                <!-- Tarjeta de compra -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden mb-8">
+                    <div class="p-6">
+                        <h2 class="text-xl font-bold text-gray-900 mb-4">Resumen de la cotización</h2>
+                        
+                        <div class="space-y-4 mb-6">
+                            <div class="flex justify-between">
+                                <span class="text-gray-500">Paquete</span>
+                                <span class="text-gray-900 font-medium">@paquete.NombrePaquete</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-500">Personas</span>
+                                <span class="text-gray-900 font-medium">@ViewBag.CantidadPersonas</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-500">Servicios extra</span>
+                                <span class="text-gray-900 font-medium">@(servicios != null ? servicios.Count : 0)</span>
+                            </div>
+                            <div class="pt-4 border-t border-gray-200">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-lg font-bold text-gray-900">Total</span>
+                                    <span class="text-2xl font-bold text-orange-600">RD$@ViewBag.Total.ToString("N2")</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <form action="@Url.Action("Comprar", "Home")" method="post" class="w-full">
+                                <input type="hidden" name="idPaquete" value="@paquete.IdPaquete" />
+                                <input type="hidden" name="cantidadPersonas" value="@ViewBag.CantidadPersonas" />
+                                <input type="hidden" name="total" value="@ViewBag.Total" />
+                                
+                                <button type="submit" class="w-full flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-black bg-orange-600 hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors duration-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                                    </svg>
+                                    Comprar ahora
+                                </button>
+                            </form>
+                            
+                            <a href="@Url.Action("Index", "Home")" class="w-full flex items-center justify-center px-6 py-3 border border-gray-300 text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 transition-colors duration-200">
+                                Volver a paquetes
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tarjeta de ayuda -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                    <div class="p-6">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">¿Necesitas ayuda?</h3>
+                        <p class="text-gray-600 mb-4">Si tienes dudas sobre esta cotización, contáctanos:</p>
+                        <div class="flex items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-orange-600" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                            </svg>
+                            <span class="ml-2 text-gray-600">+1 (809) 555-1234</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-
+<!-- Script para interactividad con jQuery -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        // Animación de entrada para las tarjetas
+        $('.bg-white').each(function(index) {
+            $(this).css('opacity', '0');
+            $(this).delay(100 * index).animate({opacity: 1}, 500);
+        });
+        
+        // Efecto hover en el botón de compra
+        $('button[type="submit"]').hover(
+            function() {
+                $(this).addClass('scale-105').css('transition', 'transform 0.2s');
+            },
+            function() {
+                $(this).removeClass('scale-105');
+            }
+        );
+    });
+</script>

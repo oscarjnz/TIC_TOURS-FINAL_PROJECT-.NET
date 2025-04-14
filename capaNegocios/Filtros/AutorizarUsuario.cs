@@ -5,7 +5,7 @@ namespace capaNegocios.Filtros
 {
     public class AutorizarUsuario : ActionFilterAttribute
     {
-        public int Rol { get; set; }
+        public int Rol { get; set; }= -1;
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
@@ -18,7 +18,7 @@ namespace capaNegocios.Filtros
                 return;
             }
 
-            if (!string.IsNullOrEmpty($"{Rol}"))
+            if (Rol != -1 && usuario.IdRol != Rol)
             {
                 if (usuario.IdRol != Rol)
                 {

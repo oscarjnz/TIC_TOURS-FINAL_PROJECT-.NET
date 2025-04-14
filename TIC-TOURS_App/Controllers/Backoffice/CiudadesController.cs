@@ -19,9 +19,10 @@ namespace TIC_TOURS_App.Controllers.Backoffice
             return View(lista);
         }
 
-        public ActionResult Crear()
-        {
-            ViewBag.Paises = paisBL.ObtenerTodos();
+        public ActionResult Crear(){
+             var paises = paisBL.ObtenerTodos();
+             ViewData["Paises"] = new SelectList(paises.ToList(), "Id", "Nombre");
+         
             return View();
         }
 

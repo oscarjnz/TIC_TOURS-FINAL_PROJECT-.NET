@@ -1,34 +1,54 @@
 @{
     ViewBag.Title = "Cotizar Paquete";
     var paquete = (capaModelo.DTO.PaqueteDTO)ViewBag.Paquete;
+    var servicios = ViewBag.Servicios as List<capaModelo.DTO.ServicioExtraDTO>;
 }
 
-<h2>Cotizar: @paquete.NombrePaquete</h2>
+<div class="max-w-3xl mx-auto p-6 bg-white shadow-md rounded-lg">
+    <h2 class="text-2xl font-bold mb-6 text-blue-700">Cotizar paquete: @paquete.NombrePaquete</h2>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-    <div class="form-group">
-        <label for="cantidadPersonas">Cantidad de personas</label>
-        <input type="number" name="cantidadPersonas" class="form-control" min="1" required />
-    </div>
+        <div class="space-y-4">
+            <!-- Cantidad de Personas -->
+            <div>
+                <label for="cantidadPersonas" class="block text-sm font-medium text-gray-700">Cantidad de personas</label>
+                <input type="number" name="cantidadPersonas" min="1" required 
+                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+            </div>
 
-    <div class="form-group">
-        <label for="fechaInicio">Fecha de inicio</label>
-        <input type="date" name="fechaInicio" class="form-control" required />
-    </div>
+            <!-- Fecha de Inicio -->
+            <div>
+                <label for="fechaInicio" class="block text-sm font-medium text-gray-700">Fecha de inicio</label>
+                <input type="date" name="fechaInicio" required 
+                       class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" />
+            </div>
 
-    <div class="form-group">
-        <label for="servicios">Servicios adicionales</label>
-        <select name="servicios[]" multiple class="form-control">
-            <option value="Seguro médico">Seguro médico</option>
-            <option value="Traslado aeropuerto">Traslado aeropuerto</option>
-            <option value="Tour guiado">Tour guiado</option>
-        </select>
-    </div>
+            <!-- Servicios Adicionales -->
+            <div>
+                <label for="servicios" class="block text-sm font-medium text-gray-700">Servicios adicionales</label>
+                <select name="servicios[]" multiple 
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                    @foreach (var s in servicios)
+                    {
+                        <option value="@s.IdServicio">@s.NombreServicio - @String.Format("{0:C}", s.Precio)</option>
+                    }
+                </select>
+                <p class="text-sm text-gray-500 mt-1">Usa Ctrl o Cmd para seleccionar múltiples.</p>
+            </div>
 
-    <input type="hidden" name="idPaquete" value="@paquete.IdPaquete" />
+            <!-- Hidden -->
+            <input type="hidden" name="idPaquete" value="@paquete.IdPaquete" />
 
-    <button type="submit" class="btn btn-primary">Calcular Cotización</button>
-}
+            <!-- Submit -->
+            <div class="pt-4">
+                <button type="submit"
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-black font-semibold py-2 px-4 rounded-md">
+                    Calcular Cotización
+                </button>
+            </div>
+        </div>
+    }
+</div>

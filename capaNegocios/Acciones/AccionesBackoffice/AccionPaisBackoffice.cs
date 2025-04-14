@@ -4,21 +4,27 @@ using capaDatos.Database;
 using capaModelo.DTO;
 using System.Web.Mvc;
 using System.Linq;
+using capaDatos.Funciones;
 
 namespace capaNegocios.Acciones.AccionesBackoffice
 {
     public class AccionPaisBackoffice
     {
         DbLibraryEntityDataContext _context = new DbLibraryEntityDataContext();
+        PaisDAL pais = new PaisDAL();
 
-        public List<PaisDTO> ObtenerTodos() =>
-            _context.tm_paises.Select(p => new PaisDTO
+        public List<PaisDTO> ObtenerTodos()
+        {
+            var paises = pais.ObtenerPaises();
+            return paises.Select(p => new PaisDTO
             {
                 IdPais = p.id_pais,
                 NombrePais = p.nombre_pais,
                 CodigoIso = p.codigo_iso
             }).ToList();
 
+        }
+          
         public PaisDTO ObtenerPorId(int id) =>
             _context.tm_paises.Where(p => p.id_pais == id).Select(p => new PaisDTO
             {

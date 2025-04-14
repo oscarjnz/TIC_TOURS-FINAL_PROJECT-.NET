@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using capaModelo.DTO;
 using capaNegocios.Acciones;
+using TIC_TOURS_App.Controllers.Backoffice;
 using static capaNegocios.Acciones.AccionCompras;
 
 namespace TIC_TOURS_App.Controllers
@@ -38,7 +39,8 @@ namespace TIC_TOURS_App.Controllers
                 var paquete = _paqueteBL.ObtenerPaquetePorId(id);
                 if (paquete == null)
                     return RedirectToAction("Index");
-
+                var paquetes = _paqueteBL.ObtenerPaquetes();
+                ViewBag.Relacionados = paquetes;
                 return View(paquete);
             }
             public ActionResult Cotizar(int id)
@@ -46,13 +48,15 @@ namespace TIC_TOURS_App.Controllers
                 var paquete = _paqueteBL.ObtenerPaquetePorId(id);
                 if (paquete == null)
                     return RedirectToAction("Index");
-
+                var servicios = new AccionServiciosExtras().ObtenerDisponibles();
+                
+                ViewBag.Servicios = servicios;
                 ViewBag.Paquete = paquete;
                 return View();
             }
             
             [HttpPost]
-            public ActionResult Cotizar(int idPaquete, int cantidadPersonas, DateTime fechaInicio, string[] servicios)
+            public ActionResult Cotizar(int idPaquete, int cantidadPersonas, DateTime fechaInicio, int[] servicios)
             {
                 var paquete = _paqueteBL.ObtenerPaquetePorId(idPaquete);
                 if (paquete == null)
@@ -61,24 +65,18 @@ namespace TIC_TOURS_App.Controllers
                 decimal precioBase = paquete.PrecioBase;
                 decimal subtotal = precioBase * cantidadPersonas;
                 decimal serviciosExtra = 0;
-                
-                if (servicios != null)
+
+                List<ServicioExtraDTO> serviciosElegidos = new List<ServicioExtraDTO>();
+
+                if (servicios != null && servicios.Any())
                 {
-                    foreach (var servicio in servicios)
-                    {
-                        switch (servicio)
-                        {
-                            case "Seguro médico":
-                                serviciosExtra += 500;
-                                break;
-                            case "Traslado aeropuerto":
-                                serviciosExtra += 800;
-                                break;
-                            case "Tour guiado":
-                                serviciosExtra += 1200;
-                                break;
-                        }
-                    }
+                    var todosServicios = new AccionServiciosExtras().ObtenerDisponibles();
+
+                    serviciosElegidos = todosServicios
+                        .Where(s => servicios.Contains(s.IdServicio))
+                        .ToList();
+
+                    serviciosExtra = serviciosElegidos.Sum(s => s.Precio ?? 0);
                 }
 
                 decimal total = subtotal + serviciosExtra;
@@ -86,13 +84,14 @@ namespace TIC_TOURS_App.Controllers
                 ViewBag.Paquete = paquete;
                 ViewBag.CantidadPersonas = cantidadPersonas;
                 ViewBag.FechaInicio = fechaInicio.ToShortDateString();
-                ViewBag.Servicios = servicios;
+                ViewBag.Servicios = serviciosElegidos;
                 ViewBag.Subtotal = subtotal;
                 ViewBag.Extras = serviciosExtra;
                 ViewBag.Total = total;
 
                 return View("ResultadoCotizacion");
             }
+
 
             [HttpPost]
             public ActionResult Comprar(int idPaquete, int cantidadPersonas, decimal total)
@@ -121,7 +120,8 @@ namespace TIC_TOURS_App.Controllers
 
                     var polizaBL = new AccionPolizas();
                     polizaBL.CrearPoliza(idCompra);
-                    return RedirectToAction("Index");
+                    int polizaId = polizaBL.ObtenerPolizasPorUsuario(usuario.IdUsuario).ToList().Last().IdPoliza;
+                    return RedirectToAction("VerPoliza", "Perfil", new {idPoliza = polizaId});
                 }
                
                 // return RedirectToAction("Checkout", "Paypal", new { idCompra = idCompra , total = total });

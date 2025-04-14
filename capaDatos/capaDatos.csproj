@@ -178,6 +178,7 @@
       <DependentUpon>DbLibraryEntity.dbml</DependentUpon>
     </Compile>
     <Compile Include="Funciones\CompraDAL.cs" />
+    <Compile Include="Funciones\PaisDAL.cs" />
     <Compile Include="Funciones\PaqueteDAL.cs" />
     <Compile Include="Funciones\PolizaDAL.cs" />
     <Compile Include="Funciones\UsuarioDAL.cs" />

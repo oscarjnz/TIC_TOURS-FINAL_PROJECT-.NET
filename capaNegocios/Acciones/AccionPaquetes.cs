@@ -18,6 +18,7 @@ namespace capaNegocios.Acciones
                 {
                     IdPaquete = p.id_paquete,
                     NombrePaquete = p.nombre_paquete,
+                    foto = p.foto,
                     Descripcion = p.descripcion,
                     DuracionDias = p.duracion_dias,
                     PrecioBase = p.precio_base,  
@@ -38,6 +39,7 @@ namespace capaNegocios.Acciones
                     IdPaquete = entidad.id_paquete,
                     NombrePaquete = entidad.nombre_paquete,
                     Descripcion = entidad.descripcion,
+                    foto = entidad.foto,
                     DuracionDias = entidad.duracion_dias,
                     PrecioBase = entidad.precio_base,
                     IdDestino = entidad.id_destino,

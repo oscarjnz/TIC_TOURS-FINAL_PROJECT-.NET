@@ -15,6 +15,7 @@ namespace capaModelo.DTO
         public decimal PrecioBase { get; set; }
         public int IdDestino { get; set; }
         public string TipoPaquete { get; set; }
+        public string foto { get; set; }
         public string Estado { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }

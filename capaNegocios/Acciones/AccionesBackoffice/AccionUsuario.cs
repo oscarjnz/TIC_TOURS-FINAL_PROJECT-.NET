@@ -16,7 +16,7 @@ namespace capaNegocios.Acciones.AccionesBackoffice
         public List<UsuarioDTO> ObtenerClientes(string buscar = "")
         {
             var query = _context.tm_usuarios
-                .Where(u => u.id_rol == 3); // Suponiendo 3 = cliente
+                .Where(u => u.id_rol == 3); 
 
             if (!string.IsNullOrWhiteSpace(buscar))
             {

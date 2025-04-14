@@ -4023,6 +4023,8 @@ namespace capaDatos.Database
 		private EntitySet<td_compra> _td_compras;
 		
 		private EntityRef<tm_destino> _tm_destino;
+
+		private string _foto;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -4034,6 +4036,9 @@ namespace capaDatos.Database
     partial void Onnombre_paqueteChanged();
     partial void OndescripcionChanging(string value);
     partial void OndescripcionChanged();
+    
+    partial void OnfotoChanging(string value);
+    partial void OnfotoChanged();
     partial void Onduracion_diasChanging(int value);
     partial void Onduracion_diasChanged();
     partial void Onprecio_baseChanging(System.Nullable<decimal> value);
@@ -4117,6 +4122,25 @@ namespace capaDatos.Database
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_foto", DbType="Text", UpdateCheck=UpdateCheck.Never)]
+		public string foto
+		{
+			get
+			{
+				return this._foto;
+			}
+			set
+			{
+				if ((this._foto != value))
+				{
+					this.OnfotoChanging(value);
+					this.SendPropertyChanging();
+					this._foto= value;
+					this.SendPropertyChanged("foto");
+					this.OnfotoChanged();
+				}
+			}
+		}
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_duracion_dias", DbType="Int NOT NULL")]
 		public int duracion_dias
 		{

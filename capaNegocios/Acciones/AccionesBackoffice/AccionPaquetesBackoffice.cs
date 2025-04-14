@@ -19,6 +19,7 @@ namespace capaNegocios.Acciones.AccionesBackoffice
         Descripcion = p.descripcion,
         DuracionDias = p.duracion_dias,
         PrecioBase = p.precio_base,
+        foto = p.foto,
         TipoPaquete = p.tipo_paquete,
         Estado = p.estado,
         IdDestino = p.id_destino,
@@ -39,6 +40,7 @@ public PaqueteDTO ObtenerPorId(int id)
         Descripcion = p.descripcion,
         DuracionDias = p.duracion_dias,
         PrecioBase = p.precio_base,
+        foto = p.foto,
         TipoPaquete = p.tipo_paquete,
         Estado = p.estado,
         IdDestino = p.id_destino

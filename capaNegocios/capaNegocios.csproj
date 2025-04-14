@@ -196,7 +196,6 @@
     <Compile Include="Acciones\AccionAsistencia.cs" />
     <Compile Include="Acciones\AccionBackoffice.cs" />
     <Compile Include="Acciones\AccionCompras.cs" />
-    <Compile Include="Acciones\AccionCotizaciones.cs" />
     <Compile Include="Acciones\AccionesBackoffice\AccionCiudadBackoffice.cs" />
     <Compile Include="Acciones\AccionesBackoffice\AccionPaisBackoffice.cs" />
     <Compile Include="Acciones\AccionesBackoffice\AccionPaquetesBackoffice.cs" />
@@ -210,6 +209,7 @@
     <Compile Include="Acciones\AccionPolizas.cs" />
     <Compile Include="Acciones\AccionReclamaciones.cs" />
     <Compile Include="Acciones\AccionRegistrar.cs" />
+    <Compile Include="Acciones\AccionServiciosExtras.cs" />
     <Compile Include="Filtros\AutorizarUsuario.cs" />
     <Compile Include="Helpers\RazorViewHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

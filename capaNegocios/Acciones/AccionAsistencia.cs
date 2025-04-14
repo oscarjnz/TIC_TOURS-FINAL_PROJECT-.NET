@@ -13,8 +13,7 @@ namespace capaNegocios.Acciones
 
         public List<AgenteSoporteDTO> ObtenerActivos()
         {
-            // Si hay una columna "activo" puedes filtrar, si no, tráelos todos
-            return _context.tm_agentes_soportes.Select(a => new AgenteSoporteDTO
+           return _context.tm_agentes_soportes.Select(a => new AgenteSoporteDTO
             {
                 IdAgente = a.id_agente,
                 NombreAgente = a.nombre_agente,

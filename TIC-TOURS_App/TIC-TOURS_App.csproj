@@ -255,12 +255,10 @@
     <Compile Include="Controllers\Backoffice\PolizaController.cs" />
     <Compile Include="Controllers\Backoffice\Reclamaciones.cs" />
     <Compile Include="Controllers\Backoffice\UsuariosController.cs" />
-    <Compile Include="Controllers\CompraController.cs" />
-    <Compile Include="Controllers\CotizacionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NosotrosController.cs" />
     <Compile Include="Controllers\PaypalController.cs" />
     <Compile Include="Controllers\PerfilController.cs" />
-    <Compile Include="Controllers\PolizaController.cs" />
     <Compile Include="Controllers\ReclamacionController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Global.asax.cs">
@@ -285,6 +283,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\tailwind\input.css" />
+    <Content Include="Content\tailwind\output.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -317,6 +317,7 @@
     <Content Include="Views\Home\Detalle.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\ResultadoCotizacion.cshtml" />
+    <Content Include="Views\Nosotros\Index.cshtml" />
     <Content Include="Views\Paises\Crear.cshtml" />
     <Content Include="Views\Paises\Editar.cshtml" />
     <Content Include="Views\Paises\Index.cshtml" />
@@ -348,9 +349,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Cotizacion\Cotizacion.cshtml" />
-    <Content Include="Views\Index\Index.cshtml" />
-    <Content Include="Views\Compra\Compra.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
