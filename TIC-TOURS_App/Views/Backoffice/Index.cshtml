@@ -1,239 +1,239 @@
-@model capaModelo.DTO.DashboardResumenDTO
-@{
-    ViewBag.Title = "Panel Administrativo";
-}
-
-<div class="min-h-screen bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <!-- Encabezado -->
-        <div class="mb-8">
-            <h1 class="text-3xl font-bold text-gray-900">Dashboard Administrativo</h1>
-            <p class="mt-2 text-gray-600">Bienvenido al panel de control de Turismo Seguro</p>
-        </div>
-
-        <!-- Tarjetas de resumen -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-            <!-- Total Usuarios -->
-            <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                <div class="p-6">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-sm font-medium text-gray-500">Total Usuarios</p>
-                            <h2 class="text-3xl font-bold text-gray-900 mt-1">@Model.TotalUsuarios</h2>
-                        </div>
-                        <div class="bg-teal-100 rounded-full p-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <a href="@Url.Action("Index", "Usuarios")" class="text-sm text-teal-600 hover:text-teal-800 font-medium flex items-center">
-                            Ver todos los usuarios
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Polizas Activas -->
-            <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                <div class="p-6">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-sm font-medium text-gray-500">Pólizas Activas</p>
-                            <h2 class="text-3xl font-bold text-gray-900 mt-1">@Model.PolizasActivas</h2>
-                        </div>
-                        <div class="bg-green-100 rounded-full p-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <a href="#" class="text-sm text-green-600 hover:text-green-800 font-medium flex items-center">
-                            Ver todas las pólizas
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Reclamaciones Pendientes -->
-            <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                <div class="p-6">
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <p class="text-sm font-medium text-gray-500">Reclamaciones Pendientes</p>
-                            <h2 class="text-3xl font-bold text-gray-900 mt-1">@Model.ReclamacionesPendientes</h2>
-                        </div>
-                        <div class="bg-amber-100 rounded-full p-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="mt-4">
-                        <a href="@Url.Action("Index", "Reclamaciones")" class="text-sm text-amber-600 hover:text-amber-800 font-medium flex items-center">
-                            Ver reclamaciones pendientes
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Secciones de Administración -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- Gestión de Paquetes -->
-            <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                <div class="border-b border-gray-200 px-6 py-4">
-                    <h2 class="text-xl font-semibold text-gray-900 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                        </svg>
-                        Gestión de Paquetes
-                    </h2>
-                </div>
-                <div class="p-6">
-                    <ul class="space-y-3">
-                        <li>
-                            <a href="@Url.Action("Index", "Paquetes")" class="flex items-center text-gray-700 hover:text-teal-600 hover:bg-gray-50 p-2 rounded-md transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
-                                </svg>
-                                Listar todos los paquetes
-                            </a>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("Crear", "Paquetes")" class="flex items-center text-gray-700 hover:text-teal-600 hover:bg-gray-50 p-2 rounded-md transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                                </svg>
-                                Crear nuevo paquete
-                            </a>
-                        </li>
-                        
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Gestión de Ubicaciones -->
-            <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                <div class="border-b border-gray-200 px-6 py-4">
-                    <h2 class="text-xl font-semibold text-gray-900 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                        Gestión de Ubicaciones
-                    </h2>
-                </div>
-                <div class="p-6">
-                    <div class="mb-4">
-                        <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">Países</h3>
-                        <ul class="space-y-2 ml-2">
-                            <li>
-                                <a href="@Url.Action("Index", "Paises")" class="flex items-center text-gray-700 hover:text-teal-600 hover:bg-gray-50 p-2 rounded-md transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
-                                    </svg>
-                                    Listar países
-                                </a>
-                            </li>
-                            <li>
-                                <a href="@Url.Action("Crear", "Paises")" class="flex items-center text-gray-700 hover:text-teal-600 hover:bg-gray-50 p-2 rounded-md transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                                    </svg>
-                                    Crear país
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">Ciudades</h3>
-                        <ul class="space-y-2 ml-2">
-                            <li>
-                                <a href="@Url.Action("Index", "Ciudades")" class="flex items-center text-gray-700 hover:text-teal-600 hover:bg-gray-50 p-2 rounded-md transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
-                                    </svg>
-                                    Listar ciudades
-                                </a>
-                            </li>
-                            <li>
-                                <a href="@Url.Action("Crear", "Ciudades")" class="flex items-center text-gray-700 hover:text-teal-600 hover:bg-gray-50 p-2 rounded-md transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                                    </svg>
-                                    Crear ciudad
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Gestión de Usuarios -->
-            <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                <div class="border-b border-gray-200 px-6 py-4">
-                    <h2 class="text-xl font-semibold text-gray-900 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                        </svg>
-                        Gestión de Usuarios
-                    </h2>
-                </div>
-                <div class="p-6">
-                    <div class="mb-4">
-                        <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">Usuarios</h3>
-                        <ul class="space-y-2 ml-2">
-                            <li>
-                                <a href="@Url.Action("Index", "Usuarios")" class="flex items-center text-gray-700 hover:text-teal-600 hover:bg-gray-50 p-2 rounded-md transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
-                                    </svg>
-                                    Listar usuarios
-                                </a>
-                            </li>
-                           
-                        </ul>
-                    </div>
-                    
-                </div>
-            </div>
-
-            <!-- Gestión de Reclamaciones -->
-            <div class="bg-white rounded-xl shadow-md overflow-hidden">
-                <div class="border-b border-gray-200 px-6 py-4">
-                    <h2 class="text-xl font-semibold text-gray-900 flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                        </svg>
-                        Gestión de Reclamaciones
-                    </h2>
-                </div>
-                <div class="p-6">
-                    <ul class="space-y-3">
-                        <li>
-                            <a href="@Url.Action("Index", "Reclamaciones")" class="flex items-center text-gray-700 hover:text-teal-600 hover:bg-gray-50 p-2 rounded-md transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
-                                </svg>
-                                Listar reclamaciones
-                            </a>
-                        </li>
-                        
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+@model capaModelo.DTO.DashboardResumenDTO
+@{
+    ViewBag.Title = "Panel Administrativo";
+}
+
+<div class="min-h-screen bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Encabezado -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Dashboard Administrativo</h1>
+            <p class="mt-2 text-gray-600">Bienvenido al panel de control de Turismo Seguro</p>
+        </div>
+
+        <!-- Tarjetas de resumen -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <!-- Total Usuarios -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                <div class="p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-500">Total Usuarios</p>
+                            <h2 class="text-3xl font-bold text-gray-900 mt-1">@Model.TotalUsuarios</h2>
+                        </div>
+                        <div class="bg-teal-100 rounded-full p-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <a href="@Url.Action("Index", "Usuarios")" class="text-sm text-teal-600 hover:text-teal-800 font-medium flex items-center">
+                            Ver todos los usuarios
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Polizas Activas -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                <div class="p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-500">PÃÂÃÂ³lizas Activas</p>
+                            <h2 class="text-3xl font-bold text-gray-900 mt-1">@Model.PolizasActivas</h2>
+                        </div>
+                        <div class="bg-green-100 rounded-full p-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <a href="#" class="text-sm text-green-600 hover:text-green-800 font-medium flex items-center">
+                            Ver todas las pÃÂÃÂ³lizas
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reclamaciones Pendientes -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                <div class="p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-500">Reclamaciones Pendientes</p>
+                            <h2 class="text-3xl font-bold text-gray-900 mt-1">@Model.ReclamacionesPendientes</h2>
+                        </div>
+                        <div class="bg-amber-100 rounded-full p-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <a href="@Url.Action("Index", "Reclamaciones")" class="text-sm text-amber-600 hover:text-amber-800 font-medium flex items-center">
+                            Ver reclamaciones pendientes
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Secciones de AdministraciÃÂÃÂ³n -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- GestiÃÂÃÂ³n de Paquetes -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="border-b border-gray-200 px-6 py-4">
+                    <h2 class="text-xl font-semibold text-gray-900 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                        </svg>
+                        GestiÃÂÃÂ³n de Paquetes
+                    </h2>
+                </div>
+                <div class="p-6">
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="@Url.Action("Index", "Paquetes")" class="flex items-center text-gray-700 hover:text-teal-600 hover:bg-gray-50 p-2 rounded-md transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                                </svg>
+                                Listar todos los paquetes
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Crear", "Paquetes")" class="flex items-center text-gray-700 hover:text-teal-600 hover:bg-gray-50 p-2 rounded-md transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                </svg>
+                                Crear nuevo paquete
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+
+            <!-- GestiÃÂÃÂ³n de Ubicaciones -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="border-b border-gray-200 px-6 py-4">
+                    <h2 class="text-xl font-semibold text-gray-900 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        GestiÃÂÃÂ³n de Ubicaciones
+                    </h2>
+                </div>
+                <div class="p-6">
+                    <div class="mb-4">
+                        <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">PaÃÂÃÂ­ses</h3>
+                        <ul class="space-y-2 ml-2">
+                            <li>
+                                <a href="@Url.Action("Index", "Paises")" class="flex items-center text-gray-700 hover:text-teal-600 hover:bg-gray-50 p-2 rounded-md transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                                    </svg>
+                                    Listar paÃÂÃÂ­ses
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Crear", "Paises")" class="flex items-center text-gray-700 hover:text-teal-600 hover:bg-gray-50 p-2 rounded-md transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                    </svg>
+                                    Crear paÃÂÃÂ­s
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">Ciudades</h3>
+                        <ul class="space-y-2 ml-2">
+                            <li>
+                                <a href="@Url.Action("Index", "Ciudades")" class="flex items-center text-gray-700 hover:text-teal-600 hover:bg-gray-50 p-2 rounded-md transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                                    </svg>
+                                    Listar ciudades
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Crear", "Ciudades")" class="flex items-center text-gray-700 hover:text-teal-600 hover:bg-gray-50 p-2 rounded-md transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                                    </svg>
+                                    Crear ciudad
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GestiÃÂÃÂ³n de Usuarios -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="border-b border-gray-200 px-6 py-4">
+                    <h2 class="text-xl font-semibold text-gray-900 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        GestiÃÂÃÂ³n de Usuarios
+                    </h2>
+                </div>
+                <div class="p-6">
+                    <div class="mb-4">
+                        <h3 class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">Usuarios</h3>
+                        <ul class="space-y-2 ml-2">
+                            <li>
+                                <a href="@Url.Action("Index", "Usuarios")" class="flex items-center text-gray-700 hover:text-teal-600 hover:bg-gray-50 p-2 rounded-md transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                                    </svg>
+                                    Listar usuarios
+                                </a>
+                            </li>
+                           
+                        </ul>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <!-- GestiÃÂÃÂ³n de Reclamaciones -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="border-b border-gray-200 px-6 py-4">
+                    <h2 class="text-xl font-semibold text-gray-900 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                        GestiÃÂÃÂ³n de Reclamaciones
+                    </h2>
+                </div>
+                <div class="p-6">
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="@Url.Action("Index", "Reclamaciones")" class="flex items-center text-gray-700 hover:text-teal-600 hover:bg-gray-50 p-2 rounded-md transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                                </svg>
+                                Listar reclamaciones
+                            </a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
