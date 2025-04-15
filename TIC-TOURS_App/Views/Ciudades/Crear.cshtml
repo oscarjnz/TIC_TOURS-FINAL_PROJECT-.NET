@@ -1,90 +1,90 @@
-@using capaModelo.DTO
-@model capaModelo.DTO.CiudadDTO
-
-@{
-    ViewBag.Title = "Nueva Ciudad";
-    var paises = ViewBag.Paises as List<PaisDTO>;
-}
-
-<div class="bg-gray-50 min-h-screen py-8">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Encabezado -->
-        <div class="mb-8">
-            <h1 class="text-2xl font-bold text-gray-900">@ViewBag.Title</h1>
-            <p class="mt-2 text-gray-600">Complete el formulario para crear una nueva ciudad</p>
-        </div>
-
-        <!-- Formulario -->
-        <div class="bg-white rounded-xl shadow-md overflow-hidden">
-            <div class="p-6">
-                @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "space-y-6" }))
-                {
-                    <!-- Nombre de la Ciudad -->
-                    <div>
-                        <label for="NombreCiudad" class="block text-sm font-medium text-gray-700 mb-1">
-                            @Html.LabelFor(m => m.NombreCiudad, "Nombre de la Ciudad")
-                        </label>
-                        <div class="mt-1">
-                            @Html.TextBoxFor(m => m.NombreCiudad, new { 
-                                @class = "w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-200 focus:ring-opacity-50",
-                                placeholder = "Ingrese el nombre de la ciudad"
-                            })
-                        </div>
-                    </div>
-
-                    <!-- PaÃÂÃÂ­s -->
-                    <div>
-                        <label for="IdPais" class="block text-sm font-medium text-gray-700 mb-1">
-                            PaÃÂÃÂ­s
-                        </label>
-                        <div class="mt-1">
-                            <select name="IdPais" id="IdPais" class="w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-200 focus:ring-opacity-50">
-                                <option value="">-- Seleccione un paÃÂÃÂ­s --</option>
-                                @* @foreach (var p in paises) *@
-                                @* { *@
-                                @*     <option value="@p.IdPais" @(Model != null && Model.IdPais == p.IdPais ? "selected" : "")>@p.NombrePais</option> *@
-                                @* } *@
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Botones de acciÃÂÃÂ³n -->
-                    <div class="flex items-center justify-end space-x-4 pt-4">
-                        <a href="@Url.Action("Index", "Ciudades")" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors duration-200">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                            Cancelar
-                        </a>
-                        <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-black bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors duration-200">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                            Guardar
-                        </button>
-                    </div>
-                }
-            </div>
-        </div>
-
-        <!-- Tarjeta de ayuda -->
-        <div class="mt-6 bg-blue-50 rounded-lg p-4 border border-blue-100">
-            <div class="flex">
-                <div class="flex-shrink-0">
-                    <svg class="h-5 w-5 text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z" clip-rule="evenodd" />
-                    </svg>
-                </div>
-                <div class="ml-3">
-                    <h3 class="text-sm font-medium text-blue-800">InformaciÃÂÃÂ³n</h3>
-                    <div class="mt-2 text-sm text-blue-700">
-                        <p>
-                            Las ciudades creadas estarÃÂÃÂ¡n disponibles para asociarlas a paquetes turÃÂÃÂ­sticos y destinos.
-                            AsegÃÂÃÂºrese de seleccionar el paÃÂÃÂ­s correcto.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+@using capaModelo.DTO
+@model capaModelo.DTO.CiudadDTO
+
+@{
+    ViewBag.Title = "Nueva Ciudad";
+    var paises = ViewBag.Paises as List<PaisDTO>;
+}
+
+<div class="bg-gray-50 min-h-screen py-8">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Encabezado -->
+        <div class="mb-8">
+            <h1 class="text-2xl font-bold text-gray-900">@ViewBag.Title</h1>
+            <p class="mt-2 text-gray-600">Complete el formulario para crear una nueva ciudad</p>
+        </div>
+
+        <!-- Formulario -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="p-6">
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "space-y-6" }))
+                {
+                    <!-- Nombre de la Ciudad -->
+                    <div>
+                        <label for="NombreCiudad" class="block text-sm font-medium text-gray-700 mb-1">
+                            @Html.LabelFor(m => m.NombreCiudad, "Nombre de la Ciudad")
+                        </label>
+                        <div class="mt-1">
+                            @Html.TextBoxFor(m => m.NombreCiudad, new { 
+                                @class = "w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-200 focus:ring-opacity-50",
+                                placeholder = "Ingrese el nombre de la ciudad"
+                            })
+                        </div>
+                    </div>
+
+                    <!-- País -->
+                    <div>
+                        <label for="IdPais" class="block text-sm font-medium text-gray-700 mb-1">
+                            País
+                        </label>
+                        <div class="mt-1">
+                            <select name="IdPais" id="IdPais" class="w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-200 focus:ring-opacity-50">
+                                <option value="">-- Seleccione un país --</option>
+                                @* @foreach (var p in paises) *@
+                                @* { *@
+                                @*     <option value="@p.IdPais" @(Model != null && Model.IdPais == p.IdPais ? "selected" : "")>@p.NombrePais</option> *@
+                                @* } *@
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Botones de acción -->
+                    <div class="flex items-center justify-end space-x-4 pt-4">
+                        <a href="@Url.Action("Index", "Ciudades")" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors duration-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                            Cancelar
+                        </a>
+                        <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-black bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors duration-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            Guardar
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Tarjeta de ayuda -->
+        <div class="mt-6 bg-blue-50 rounded-lg p-4 border border-blue-100">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <h3 class="text-sm font-medium text-blue-800">Información</h3>
+                    <div class="mt-2 text-sm text-blue-700">
+                        <p>
+                            Las ciudades creadas estarán disponibles para asociarlas a paquetes turísticos y destinos.
+                            Asegúrese de seleccionar el país correcto.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

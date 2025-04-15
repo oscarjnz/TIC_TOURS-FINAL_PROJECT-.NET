@@ -1,179 +1,179 @@
-@model capaModelo.DTO.ReclamacionDTO
-@{
-    ViewBag.Title = "Detalle de ReclamaciÃÂÃÂ³n";
-
-    // Definir clases y colores segÃÂÃÂºn el estado de la reclamaciÃÂÃÂ³n
-    string estadoColor = "gray";
-    string estadoBg = "bg-gray-100";
-    string estadoText = "text-gray-800";
-    string estadoIcon = "";
-
-    if (Model.Estado.ToLower() == "en revisiÃÂÃÂ³n") {
-        estadoColor = "yellow";
-        estadoBg = "bg-yellow-100";
-        estadoText = "text-yellow-800";
-        estadoIcon = @"<svg xmlns=""http://www.w3.org/2000/svg"" class=""h-4 w-4 mr-1 text-yellow-600"" fill=""none"" viewBox=""0 0 24 24"" stroke=""currentColor"">
-                        <path stroke-linecap=""round"" stroke-linejoin=""round"" stroke-width=""2"" d=""M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"" />
-                      </svg>";
-    } else if (Model.Estado.ToLower() == "aceptada") {
-        estadoColor = "green";
-        estadoBg = "bg-green-100";
-        estadoText = "text-green-800";
-        estadoIcon = @"<svg xmlns=""http://www.w3.org/2000/svg"" class=""h-4 w-4 mr-1 text-green-600"" fill=""none"" viewBox=""0 0 24 24"" stroke=""currentColor"">
-                        <path stroke-linecap=""round"" stroke-linejoin=""round"" stroke-width=""2"" d=""M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"" />
-                      </svg>";
-    } else if (Model.Estado.ToLower() == "rechazada") {
-        estadoColor = "red";
-        estadoBg = "bg-red-100";
-        estadoText = "text-red-800";
-        estadoIcon = @"<svg xmlns=""http://www.w3.org/2000/svg"" class=""h-4 w-4 mr-1 text-red-600"" fill=""none"" viewBox=""0 0 24 24"" stroke=""currentColor"">
-                        <path stroke-linecap=""round"" stroke-linejoin=""round"" stroke-width=""2"" d=""M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"" />
-                      </svg>";
-    } else if (Model.Estado.ToLower() == "pendiente") {
-        estadoColor = "blue";
-        estadoBg = "bg-blue-100";
-        estadoText = "text-blue-800";
-        estadoIcon = @"<svg xmlns=""http://www.w3.org/2000/svg"" class=""h-4 w-4 mr-1 text-blue-600"" fill=""none"" viewBox=""0 0 24 24"" stroke=""currentColor"">
-                        <path stroke-linecap=""round"" stroke-linejoin=""round"" stroke-width=""2"" d=""M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"" />
-                      </svg>";
-    }
-}
-
-<div class="bg-gradient-to-r from-blue-50 to-purple-50 py-8">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="mb-6">
-            <h2 class="text-2xl font-bold text-gray-900 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-                </svg>
-                Detalle de ReclamaciÃÂÃÂ³n
-            </h2>
-            <p class="text-sm text-gray-600 mt-1">
-                InformaciÃÂÃÂ³n completa y gestiÃÂÃÂ³n de la reclamaciÃÂÃÂ³n
-            </p>
-        </div>
-
-        <!-- Tarjeta de detalles de la reclamaciÃÂÃÂ³n -->
-        <div class="bg-white rounded-xl shadow-md overflow-hidden mb-6">
-            <div class="px-6 py-5 border-b border-gray-200 flex justify-between items-center">
-                <h3 class="text-lg font-medium text-gray-900">
-                    InformaciÃÂÃÂ³n de la ReclamaciÃÂÃÂ³n
-                </h3>
-                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium @estadoBg @estadoText">
-                    @Html.Raw(estadoIcon)
-                    @Model.Estado
-                </span>
-            </div>
-
-            <div class="px-6 py-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <dl class="space-y-4">
-                            <div>
-                                <dt class="text-sm font-medium text-gray-500">ID de PÃÂÃÂ³liza</dt>
-                                <dd class="mt-1 text-lg font-semibold text-gray-900 flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                    </svg>
-                                    @Model.IdPoliza
-                                </dd>
-                            </div>
-                            <div>
-                                <dt class="text-sm font-medium text-gray-500">Fecha de ReclamaciÃÂÃÂ³n</dt>
-                                <dd class="mt-1 text-gray-900 flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                    </svg>
-                                    @Model.FechaReclamo.ToShortDateString()
-                                </dd>
-                            </div>
-                        </dl>
-                    </div>
-                    <div>
-                        <dl class="space-y-4">
-                            @if (!string.IsNullOrEmpty(Model.Documento))
-                            {
-                                <div>
-                                    <dt class="text-sm font-medium text-gray-500">Documento Adjunto</dt>
-                                    <dd class="mt-1">
-                                        <a href="@Url.Action("DescargarDocumento", "Reclamaciones", new { nombreArchivo = Model.Documento })" target="_blank" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors duration-200">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                            </svg>
-                                            Ver Documento
-                                        </a>
-                                    </dd>
-                                </div>
-                            }
-                        </dl>
-                    </div>
-                </div>
-
-                <div class="mt-6">
-                    <h4 class="text-sm font-medium text-gray-500 mb-2">Motivo de la ReclamaciÃÂÃÂ³n</h4>
-                    <div class="bg-gray-50 rounded-lg p-4 text-gray-800">
-                        @Model.Descripcion
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tarjeta de cambio de estado -->
-        <div class="bg-white rounded-xl shadow-md overflow-hidden">
-            <div class="px-6 py-5 border-b border-gray-200">
-                <h3 class="text-lg font-medium text-gray-900 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                    </svg>
-                    Cambiar Estado de la ReclamaciÃÂÃÂ³n
-                </h3>
-                <p class="mt-1 text-sm text-gray-500">
-                    Seleccione una opciÃÂÃÂ³n para actualizar el estado de la reclamaciÃÂÃÂ³n
-                </p>
-            </div>
-
-            <div class="px-6 py-6">
-                <div class="flex flex-wrap gap-3">
-                    <a href="@Url.Action("CambiarEstado", "Reclamaciones", new { id = Model.IdReclamacion, nuevoEstado = "en revisiÃÂÃÂ³n" })" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-colors duration-200 @(Model.Estado.ToLower() == "en revisiÃÂÃÂ³n" ? "opacity-50 cursor-not-allowed" : "")">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        Marcar En RevisiÃÂÃÂ³n
-                    </a>
-                    <a href="@Url.Action("CambiarEstado", "Reclamaciones", new { id = Model.IdReclamacion, nuevoEstado = "aceptada" })" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 @(Model.Estado.ToLower() == "aceptada" ? "opacity-50 cursor-not-allowed" : "")">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        Aceptar ReclamaciÃÂÃÂ³n
-                    </a>
-                    <a href="@Url.Action("CambiarEstado", "Reclamaciones", new { id = Model.IdReclamacion, nuevoEstado = "rechazada" })" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200 @(Model.Estado.ToLower() == "rechazada" ? "opacity-50 cursor-not-allowed" : "")">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        Rechazar ReclamaciÃÂÃÂ³n
-                    </a>
-                </div>
-
-                <div class="mt-4 text-sm text-gray-500">
-                    <p class="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        El cambio de estado se registrarÃÂÃÂ¡ en el historial de la reclamaciÃÂÃÂ³n
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- BotÃÂÃÂ³n de regreso -->
-        <div class="mt-6 flex justify-center">
-            <a href="@Url.Action("Index", "Reclamaciones")" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                Volver al Listado
-            </a>
-        </div>
-    </div>
-</div>
+@model capaModelo.DTO.ReclamacionDTO
+@{
+    ViewBag.Title = "Detalle de Reclamación";
+
+    // Definir clases y colores según el estado de la reclamación
+    string estadoColor = "gray";
+    string estadoBg = "bg-gray-100";
+    string estadoText = "text-gray-800";
+    string estadoIcon = "";
+
+    if (Model.Estado.ToLower() == "en revisión") {
+        estadoColor = "yellow";
+        estadoBg = "bg-yellow-100";
+        estadoText = "text-yellow-800";
+        estadoIcon = @"<svg xmlns=""http://www.w3.org/2000/svg"" class=""h-4 w-4 mr-1 text-yellow-600"" fill=""none"" viewBox=""0 0 24 24"" stroke=""currentColor"">
+                        <path stroke-linecap=""round"" stroke-linejoin=""round"" stroke-width=""2"" d=""M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"" />
+                      </svg>";
+    } else if (Model.Estado.ToLower() == "aceptada") {
+        estadoColor = "green";
+        estadoBg = "bg-green-100";
+        estadoText = "text-green-800";
+        estadoIcon = @"<svg xmlns=""http://www.w3.org/2000/svg"" class=""h-4 w-4 mr-1 text-green-600"" fill=""none"" viewBox=""0 0 24 24"" stroke=""currentColor"">
+                        <path stroke-linecap=""round"" stroke-linejoin=""round"" stroke-width=""2"" d=""M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"" />
+                      </svg>";
+    } else if (Model.Estado.ToLower() == "rechazada") {
+        estadoColor = "red";
+        estadoBg = "bg-red-100";
+        estadoText = "text-red-800";
+        estadoIcon = @"<svg xmlns=""http://www.w3.org/2000/svg"" class=""h-4 w-4 mr-1 text-red-600"" fill=""none"" viewBox=""0 0 24 24"" stroke=""currentColor"">
+                        <path stroke-linecap=""round"" stroke-linejoin=""round"" stroke-width=""2"" d=""M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"" />
+                      </svg>";
+    } else if (Model.Estado.ToLower() == "pendiente") {
+        estadoColor = "blue";
+        estadoBg = "bg-blue-100";
+        estadoText = "text-blue-800";
+        estadoIcon = @"<svg xmlns=""http://www.w3.org/2000/svg"" class=""h-4 w-4 mr-1 text-blue-600"" fill=""none"" viewBox=""0 0 24 24"" stroke=""currentColor"">
+                        <path stroke-linecap=""round"" stroke-linejoin=""round"" stroke-width=""2"" d=""M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"" />
+                      </svg>";
+    }
+}
+
+<div class="bg-gradient-to-r from-blue-50 to-purple-50 py-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-6">
+            <h2 class="text-2xl font-bold text-gray-900 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                Detalle de Reclamación
+            </h2>
+            <p class="text-sm text-gray-600 mt-1">
+                Información completa y gestión de la reclamación
+            </p>
+        </div>
+
+        <!-- Tarjeta de detalles de la reclamación -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden mb-6">
+            <div class="px-6 py-5 border-b border-gray-200 flex justify-between items-center">
+                <h3 class="text-lg font-medium text-gray-900">
+                    Información de la Reclamación
+                </h3>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium @estadoBg @estadoText">
+                    @Html.Raw(estadoIcon)
+                    @Model.Estado
+                </span>
+            </div>
+
+            <div class="px-6 py-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <dl class="space-y-4">
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500">ID de Póliza</dt>
+                                <dd class="mt-1 text-lg font-semibold text-gray-900 flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                    @Model.IdPoliza
+                                </dd>
+                            </div>
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500">Fecha de Reclamación</dt>
+                                <dd class="mt-1 text-gray-900 flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                    @Model.FechaReclamo.ToShortDateString()
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+                    <div>
+                        <dl class="space-y-4">
+                            @if (!string.IsNullOrEmpty(Model.Documento))
+                            {
+                                <div>
+                                    <dt class="text-sm font-medium text-gray-500">Documento Adjunto</dt>
+                                    <dd class="mt-1">
+                                        <a href="@Url.Action("DescargarDocumento", "Reclamaciones", new { nombreArchivo = Model.Documento })" target="_blank" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors duration-200">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                            </svg>
+                                            Ver Documento
+                                        </a>
+                                    </dd>
+                                </div>
+                            }
+                        </dl>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <h4 class="text-sm font-medium text-gray-500 mb-2">Motivo de la Reclamación</h4>
+                    <div class="bg-gray-50 rounded-lg p-4 text-gray-800">
+                        @Model.Descripcion
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta de cambio de estado -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="px-6 py-5 border-b border-gray-200">
+                <h3 class="text-lg font-medium text-gray-900 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                    Cambiar Estado de la Reclamación
+                </h3>
+                <p class="mt-1 text-sm text-gray-500">
+                    Seleccione una opción para actualizar el estado de la reclamación
+                </p>
+            </div>
+
+            <div class="px-6 py-6">
+                <div class="flex flex-wrap gap-3">
+                    <a href="@Url.Action("CambiarEstado", "Reclamaciones", new { id = Model.IdReclamacion, nuevoEstado = "en revisión" })" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-colors duration-200 @(Model.Estado.ToLower() == "en revisión" ? "opacity-50 cursor-not-allowed" : "")">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Marcar En Revisión
+                    </a>
+                    <a href="@Url.Action("CambiarEstado", "Reclamaciones", new { id = Model.IdReclamacion, nuevoEstado = "aceptada" })" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 @(Model.Estado.ToLower() == "aceptada" ? "opacity-50 cursor-not-allowed" : "")">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Aceptar Reclamación
+                    </a>
+                    <a href="@Url.Action("CambiarEstado", "Reclamaciones", new { id = Model.IdReclamacion, nuevoEstado = "rechazada" })" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200 @(Model.Estado.ToLower() == "rechazada" ? "opacity-50 cursor-not-allowed" : "")">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Rechazar Reclamación
+                    </a>
+                </div>
+
+                <div class="mt-4 text-sm text-gray-500">
+                    <p class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        El cambio de estado se registrará en el historial de la reclamación
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botón de regreso -->
+        <div class="mt-6 flex justify-center">
+            <a href="@Url.Action("Index", "Reclamaciones")" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Volver al Listado
+            </a>
+        </div>
+    </div>
+</div>

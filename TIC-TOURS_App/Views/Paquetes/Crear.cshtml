@@ -1,177 +1,177 @@
-@model capaModelo.DTO.PaqueteDTO
-@{
-    ViewBag.Title = "Nuevo Paquete TurÃÂÃÂ­stico";
-    var ciudades = ViewBag.Ciudades as List<capaModelo.DTO.CiudadDTO> ?? new List<capaModelo.DTO.CiudadDTO>();
-    var destinos = ViewBag.Destinos as List<capaModelo.DTO.DestinoDTO> ?? new List<capaModelo.DTO.DestinoDTO>();
-}
-
-<div class="bg-gray-50 min-h-screen py-8">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Encabezado -->
-        <div class="mb-8">
-            <h1 class="text-2xl font-bold text-gray-900">@ViewBag.Title</h1>
-            <p class="mt-2 text-gray-600">Complete el formulario para crear un nuevo paquete turÃÂÃÂ­stico</p>
-        </div>
-
-        <!-- Formulario -->
-        <div class="bg-white rounded-xl shadow-md overflow-hidden">
-            <div class="p-6">
-                @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "space-y-6" }))
-                {
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Nombre del Paquete -->
-                        <div class="col-span-2">
-                            <label for="NombrePaquete" class="block text-sm font-medium text-gray-700 mb-1">
-                                @Html.LabelFor(x => x.NombrePaquete, "Nombre del Paquete")
-                            </label>
-                            <div class="mt-1">
-                                @Html.TextBoxFor(x => x.NombrePaquete, new { 
-                                    @class = "w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-200 focus:ring-opacity-50",
-                                    placeholder = "Ingrese el nombre del paquete"
-                                })
-                            </div>
-                        </div>
-
-                        <!-- DescripciÃÂÃÂ³n -->
-                        <div class="col-span-2">
-                            <label for="Descripcion" class="block text-sm font-medium text-gray-700 mb-1">
-                                @Html.LabelFor(x => x.Descripcion, "DescripciÃÂÃÂ³n")
-                            </label>
-                            <div class="mt-1">
-                                @Html.TextAreaFor(x => x.Descripcion, new { 
-                                    @class = "w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-200 focus:ring-opacity-50",
-                                    placeholder = "Ingrese la descripciÃÂÃÂ³n del paquete",
-                                    rows = 4
-                                })
-                            </div>
-                        </div>
-
-                        <!-- DuraciÃÂÃÂ³n en dÃÂÃÂ­as -->
-                        <div>
-                            <label for="DuracionDias" class="block text-sm font-medium text-gray-700 mb-1">
-                                @Html.LabelFor(x => x.DuracionDias, "DuraciÃÂÃÂ³n (dÃÂÃÂ­as)")
-                            </label>
-                            <div class="mt-1">
-                                @Html.TextBoxFor(x => x.DuracionDias, new { 
-                                    @class = "w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-200 focus:ring-opacity-50",
-                                    type = "number",
-                                    min = "1",
-                                    placeholder = "Ej: 7"
-                                })
-                            </div>
-                        </div>
-
-                        <!-- Precio Base -->
-                        <div>
-                            <label for="PrecioBase" class="block text-sm font-medium text-gray-700 mb-1">
-                                @Html.LabelFor(x => x.PrecioBase, "Precio Base ($)")
-                            </label>
-                            <div class="mt-1 relative rounded-md shadow-sm">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <span class="text-gray-500 sm:text-sm">$</span>
-                                </div>
-                                @Html.TextBoxFor(x => x.PrecioBase, new { 
-                                    @class = "w-full pl-7 rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-200 focus:ring-opacity-50",
-                                    type = "number",
-                                    step = "0.01",
-                                    min = "0",
-                                    placeholder = "0.00"
-                                })
-                            </div>
-                        </div>
-
-                        <!-- Tipo de Paquete -->
-                        <div>
-                            <label for="TipoPaquete" class="block text-sm font-medium text-gray-700 mb-1">
-                                @Html.LabelFor(x => x.TipoPaquete, "Tipo de Paquete")
-                            </label>
-                            <div class="mt-1">
-                                @Html.DropDownListFor(x => x.TipoPaquete, 
-                                    new SelectList(new[] { "econÃÂÃÂ³mico", "estÃÂÃÂ¡ndar", "premium" }), 
-                                    "-- Seleccionar tipo --", 
-                                    new { 
-                                        @class = "w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-200 focus:ring-opacity-50"
-                                    }
-                                )
-                            </div>
-                        </div>
-
-                        <!-- Estado -->
-                        <div>
-                            <label for="Estado" class="block text-sm font-medium text-gray-700 mb-1">
-                                @Html.LabelFor(x => x.Estado, "Estado")
-                            </label>
-                            <div class="mt-1">
-                                @Html.DropDownListFor(x => x.Estado, 
-                                    new SelectList(new[] { "activo", "inactivo" }), 
-                                    "-- Seleccionar estado --", 
-                                    new { 
-                                        @class = "w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-200 focus:ring-opacity-50"
-                                    }
-                                )
-                            </div>
-                        </div>
-
-                        <!-- Destino TurÃÂÃÂ­stico -->
-                        <div class="col-span-2">
-                            <label for="IdDestino" class="block text-sm font-medium text-gray-700 mb-1">
-                                Destino TurÃÂÃÂ­stico
-                            </label>
-                            <div class="mt-1">
-                                <select 
-                                    name="IdDestino" 
-                                    id="IdDestino" 
-                                    class="w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-200 focus:ring-opacity-50"
-                                >
-                                    <option value="">-- Seleccionar destino --</option>
-                                    @foreach (var d in destinos)
-                                    {
-                                        <option value="@d.IdDestino" @(Model?.IdDestino == d.IdDestino ? "selected" : "")>
-                                            @d.NombreDestino
-                                        </option>
-                                    }
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Botones de acciÃÂÃÂ³n -->
-                    <div class="flex items-center justify-end space-x-4 pt-4 border-t border-gray-200 mt-8">
-                        <a href="@Url.Action("Index", "Paquetes")" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors duration-200">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                            Cancelar
-                        </a>
-                        <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors duration-200">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                            </svg>
-                            Guardar Paquete
-                        </button>
-                    </div>
-                }
-            </div>
-        </div>
-
-        <!-- Tarjeta de ayuda -->
-        <div class="mt-6 bg-blue-50 rounded-lg p-4 border border-blue-100">
-            <div class="flex">
-                <div class="flex-shrink-0">
-                    <svg class="h-5 w-5 text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z" clip-rule="evenodd" />
-                    </svg>
-                </div>
-                <div class="ml-3">
-                    <h3 class="text-sm font-medium text-blue-800">InformaciÃÂÃÂ³n</h3>
-                    <div class="mt-2 text-sm text-blue-700">
-                        <p>
-                            Los paquetes turÃÂÃÂ­sticos son la base de las ofertas para los clientes. 
-                            AsegÃÂÃÂºrese de proporcionar informaciÃÂÃÂ³n precisa y detallada para mejorar la experiencia del usuario.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+@model capaModelo.DTO.PaqueteDTO
+@{
+    ViewBag.Title = "Nuevo Paquete Turístico";
+    var ciudades = ViewBag.Ciudades as List<capaModelo.DTO.CiudadDTO> ?? new List<capaModelo.DTO.CiudadDTO>();
+    var destinos = ViewBag.Destinos as List<capaModelo.DTO.DestinoDTO> ?? new List<capaModelo.DTO.DestinoDTO>();
+}
+
+<div class="bg-gray-50 min-h-screen py-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Encabezado -->
+        <div class="mb-8">
+            <h1 class="text-2xl font-bold text-gray-900">@ViewBag.Title</h1>
+            <p class="mt-2 text-gray-600">Complete el formulario para crear un nuevo paquete turístico</p>
+        </div>
+
+        <!-- Formulario -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="p-6">
+                @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "space-y-6" }))
+                {
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Nombre del Paquete -->
+                        <div class="col-span-2">
+                            <label for="NombrePaquete" class="block text-sm font-medium text-gray-700 mb-1">
+                                @Html.LabelFor(x => x.NombrePaquete, "Nombre del Paquete")
+                            </label>
+                            <div class="mt-1">
+                                @Html.TextBoxFor(x => x.NombrePaquete, new { 
+                                    @class = "w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-200 focus:ring-opacity-50",
+                                    placeholder = "Ingrese el nombre del paquete"
+                                })
+                            </div>
+                        </div>
+
+                        <!-- Descripción -->
+                        <div class="col-span-2">
+                            <label for="Descripcion" class="block text-sm font-medium text-gray-700 mb-1">
+                                @Html.LabelFor(x => x.Descripcion, "Descripción")
+                            </label>
+                            <div class="mt-1">
+                                @Html.TextAreaFor(x => x.Descripcion, new { 
+                                    @class = "w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-200 focus:ring-opacity-50",
+                                    placeholder = "Ingrese la descripción del paquete",
+                                    rows = 4
+                                })
+                            </div>
+                        </div>
+
+                        <!-- Duración en días -->
+                        <div>
+                            <label for="DuracionDias" class="block text-sm font-medium text-gray-700 mb-1">
+                                @Html.LabelFor(x => x.DuracionDias, "Duración (días)")
+                            </label>
+                            <div class="mt-1">
+                                @Html.TextBoxFor(x => x.DuracionDias, new { 
+                                    @class = "w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-200 focus:ring-opacity-50",
+                                    type = "number",
+                                    min = "1",
+                                    placeholder = "Ej: 7"
+                                })
+                            </div>
+                        </div>
+
+                        <!-- Precio Base -->
+                        <div>
+                            <label for="PrecioBase" class="block text-sm font-medium text-gray-700 mb-1">
+                                @Html.LabelFor(x => x.PrecioBase, "Precio Base ($)")
+                            </label>
+                            <div class="mt-1 relative rounded-md shadow-sm">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <span class="text-gray-500 sm:text-sm">$</span>
+                                </div>
+                                @Html.TextBoxFor(x => x.PrecioBase, new { 
+                                    @class = "w-full pl-7 rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-200 focus:ring-opacity-50",
+                                    type = "number",
+                                    step = "0.01",
+                                    min = "0",
+                                    placeholder = "0.00"
+                                })
+                            </div>
+                        </div>
+
+                        <!-- Tipo de Paquete -->
+                        <div>
+                            <label for="TipoPaquete" class="block text-sm font-medium text-gray-700 mb-1">
+                                @Html.LabelFor(x => x.TipoPaquete, "Tipo de Paquete")
+                            </label>
+                            <div class="mt-1">
+                                @Html.DropDownListFor(x => x.TipoPaquete, 
+                                    new SelectList(new[] { "económico", "estándar", "premium" }), 
+                                    "-- Seleccionar tipo --", 
+                                    new { 
+                                        @class = "w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-200 focus:ring-opacity-50"
+                                    }
+                                )
+                            </div>
+                        </div>
+
+                        <!-- Estado -->
+                        <div>
+                            <label for="Estado" class="block text-sm font-medium text-gray-700 mb-1">
+                                @Html.LabelFor(x => x.Estado, "Estado")
+                            </label>
+                            <div class="mt-1">
+                                @Html.DropDownListFor(x => x.Estado, 
+                                    new SelectList(new[] { "activo", "inactivo" }), 
+                                    "-- Seleccionar estado --", 
+                                    new { 
+                                        @class = "w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-200 focus:ring-opacity-50"
+                                    }
+                                )
+                            </div>
+                        </div>
+
+                        <!-- Destino Turístico -->
+                        <div class="col-span-2">
+                            <label for="IdDestino" class="block text-sm font-medium text-gray-700 mb-1">
+                                Destino Turístico
+                            </label>
+                            <div class="mt-1">
+                                <select 
+                                    name="IdDestino" 
+                                    id="IdDestino" 
+                                    class="w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-200 focus:ring-opacity-50"
+                                >
+                                    <option value="">-- Seleccionar destino --</option>
+                                    @foreach (var d in destinos)
+                                    {
+                                        <option value="@d.IdDestino" @(Model?.IdDestino == d.IdDestino ? "selected" : "")>
+                                            @d.NombreDestino
+                                        </option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botones de acción -->
+                    <div class="flex items-center justify-end space-x-4 pt-4 border-t border-gray-200 mt-8">
+                        <a href="@Url.Action("Index", "Paquetes")" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors duration-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                            Cancelar
+                        </a>
+                        <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors duration-200">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            Guardar Paquete
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- Tarjeta de ayuda -->
+        <div class="mt-6 bg-blue-50 rounded-lg p-4 border border-blue-100">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-blue-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <h3 class="text-sm font-medium text-blue-800">Información</h3>
+                    <div class="mt-2 text-sm text-blue-700">
+                        <p>
+                            Los paquetes turísticos son la base de las ofertas para los clientes. 
+                            Asegúrese de proporcionar información precisa y detallada para mejorar la experiencia del usuario.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

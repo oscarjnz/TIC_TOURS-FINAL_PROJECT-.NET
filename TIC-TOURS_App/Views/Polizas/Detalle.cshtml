@@ -1,172 +1,172 @@
-@model capaModelo.DTO.PolizaDTO
-@{
-    ViewBag.Title = "Detalle de PÃÂÃÂ³liza";
-
-    // Definir clases y colores segÃÂÃÂºn el estado de la pÃÂÃÂ³liza
-    string estadoColor = "gray";
-    string estadoBg = "bg-gray-100";
-    string estadoText = "text-gray-800";
-
-    if (Model.Estado.ToLower() == "activa") {
-        estadoColor = "green";
-        estadoBg = "bg-green-100";
-        estadoText = "text-green-800";
-    } else if (Model.Estado.ToLower() == "expirada") {
-        estadoColor = "yellow";
-        estadoBg = "bg-yellow-100";
-        estadoText = "text-yellow-800";
-    } else if (Model.Estado.ToLower() == "cancelada") {
-        estadoColor = "red";
-        estadoBg = "bg-red-100";
-        estadoText = "text-red-800";
-    }
-}
-
-<div class="bg-gradient-to-r from-blue-50 to-purple-50 py-8">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="mb-6">
-            <h2 class="text-2xl font-bold text-gray-900 flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                Detalle de PÃÂÃÂ³liza
-            </h2>
-            <p class="text-sm text-gray-600 mt-1">
-                InformaciÃÂÃÂ³n completa y gestiÃÂÃÂ³n de la pÃÂÃÂ³liza de seguro
-            </p>
-        </div>
-
-        <!-- Tarjeta de detalles de la pÃÂÃÂ³liza -->
-        <div class="bg-white rounded-xl shadow-md overflow-hidden mb-6">
-            <div class="px-6 py-5 border-b border-gray-200 flex justify-between items-center">
-                <h3 class="text-lg font-medium text-gray-900">
-                    InformaciÃÂÃÂ³n de la PÃÂÃÂ³liza
-                </h3>
-                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium @estadoBg @estadoText">
-                    @if (Model.Estado.ToLower() == "activa")
-                    {
-                        <svg class="h-4 w-4 mr-1 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                    }
-                    else if (Model.Estado.ToLower() == "expirada")
-                    {
-                        <svg class="h-4 w-4 mr-1 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                    }
-                    else if (Model.Estado.ToLower() == "cancelada")
-                    {
-                        <svg class="h-4 w-4 mr-1 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                    }
-                    @Model.Estado
-                </span>
-            </div>
-
-            <div class="px-6 py-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                        <dl class="space-y-4">
-                            <div>
-                                <dt class="text-sm font-medium text-gray-500">NÃÂÃÂºmero de PÃÂÃÂ³liza</dt>
-                                <dd class="mt-1 text-lg font-semibold text-gray-900">@Model.NumeroPoliza</dd>
-                            </div>
-                            <div>
-                                <dt class="text-sm font-medium text-gray-500">Fecha de Inicio</dt>
-                                <dd class="mt-1 text-gray-900 flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                    </svg>
-                                    @Model.FechaInicio.ToShortDateString()
-                                </dd>
-                            </div>
-                        </dl>
-                    </div>
-                    <div>
-                        <dl class="space-y-4">
-                            <div>
-                                <dt class="text-sm font-medium text-gray-500">Fecha de Fin</dt>
-                                <dd class="mt-1 text-gray-900 flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                    </svg>
-                                    @Model.FechaFin.ToShortDateString()
-                                </dd>
-                            </div>
-                            <div>
-                                <dt class="text-sm font-medium text-gray-500">Documento</dt>
-                                <dd class="mt-1">
-                                    <a href="@Url.Action("DescargarPdf", "Polizas", new { nombreArchivo = Model.ArchivoPdf })" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors duration-200">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                        </svg>
-                                        Descargar PDF
-                                    </a>
-                                </dd>
-                            </div>
-                        </dl>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tarjeta de cambio de estado -->
-        <div class="bg-white rounded-xl shadow-md overflow-hidden">
-            <div class="px-6 py-5 border-b border-gray-200">
-                <h3 class="text-lg font-medium text-gray-900 flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                    </svg>
-                    Cambiar Estado de la PÃÂÃÂ³liza
-                </h3>
-                <p class="mt-1 text-sm text-gray-500">
-                    Seleccione una opciÃÂÃÂ³n para actualizar el estado de la pÃÂÃÂ³liza
-                </p>
-            </div>
-
-            <div class="px-6 py-6">
-                <div class="flex flex-wrap gap-3">
-                    <a href="@Url.Action("CambiarEstado", "Polizas", new { id = Model.IdPoliza, nuevoEstado = "activa" })" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 @(Model.Estado.ToLower() == "activa" ? "opacity-50 cursor-not-allowed" : "")">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        Activar
-                    </a>
-                    <a href="@Url.Action("CambiarEstado", "Polizas", new { id = Model.IdPoliza, nuevoEstado = "expirada" })" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-colors duration-200 @(Model.Estado.ToLower() == "expirada" ? "opacity-50 cursor-not-allowed" : "")">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        Marcar como Expirada
-                    </a>
-                    <a href="@Url.Action("CambiarEstado", "Polizas", new { id = Model.IdPoliza, nuevoEstado = "cancelada" })" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200 @(Model.Estado.ToLower() == "cancelada" ? "opacity-50 cursor-not-allowed" : "")">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        Cancelar PÃÂÃÂ³liza
-                    </a>
-                </div>
-
-                <div class="mt-4 text-sm text-gray-500">
-                    <p class="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        El cambio de estado se registrarÃÂÃÂ¡ en el historial de la pÃÂÃÂ³liza
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- BotÃÂÃÂ³n de regreso -->
-        <div class="mt-6 flex justify-center">
-            <a href="@Url.Action("Index", "Polizas")" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                Volver al Listado
-            </a>
-        </div>
-    </div>
-</div>
+@model capaModelo.DTO.PolizaDTO
+@{
+    ViewBag.Title = "Detalle de Póliza";
+
+    // Definir clases y colores según el estado de la póliza
+    string estadoColor = "gray";
+    string estadoBg = "bg-gray-100";
+    string estadoText = "text-gray-800";
+
+    if (Model.Estado.ToLower() == "activa") {
+        estadoColor = "green";
+        estadoBg = "bg-green-100";
+        estadoText = "text-green-800";
+    } else if (Model.Estado.ToLower() == "expirada") {
+        estadoColor = "yellow";
+        estadoBg = "bg-yellow-100";
+        estadoText = "text-yellow-800";
+    } else if (Model.Estado.ToLower() == "cancelada") {
+        estadoColor = "red";
+        estadoBg = "bg-red-100";
+        estadoText = "text-red-800";
+    }
+}
+
+<div class="bg-gradient-to-r from-blue-50 to-purple-50 py-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-6">
+            <h2 class="text-2xl font-bold text-gray-900 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                Detalle de Póliza
+            </h2>
+            <p class="text-sm text-gray-600 mt-1">
+                Información completa y gestión de la póliza de seguro
+            </p>
+        </div>
+
+        <!-- Tarjeta de detalles de la póliza -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden mb-6">
+            <div class="px-6 py-5 border-b border-gray-200 flex justify-between items-center">
+                <h3 class="text-lg font-medium text-gray-900">
+                    Información de la Póliza
+                </h3>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium @estadoBg @estadoText">
+                    @if (Model.Estado.ToLower() == "activa")
+                    {
+                        <svg class="h-4 w-4 mr-1 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    }
+                    else if (Model.Estado.ToLower() == "expirada")
+                    {
+                        <svg class="h-4 w-4 mr-1 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    }
+                    else if (Model.Estado.ToLower() == "cancelada")
+                    {
+                        <svg class="h-4 w-4 mr-1 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    }
+                    @Model.Estado
+                </span>
+            </div>
+
+            <div class="px-6 py-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <dl class="space-y-4">
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500">Número de Póliza</dt>
+                                <dd class="mt-1 text-lg font-semibold text-gray-900">@Model.NumeroPoliza</dd>
+                            </div>
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500">Fecha de Inicio</dt>
+                                <dd class="mt-1 text-gray-900 flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                    @Model.FechaInicio.ToShortDateString()
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+                    <div>
+                        <dl class="space-y-4">
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500">Fecha de Fin</dt>
+                                <dd class="mt-1 text-gray-900 flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                    @Model.FechaFin.ToShortDateString()
+                                </dd>
+                            </div>
+                            <div>
+                                <dt class="text-sm font-medium text-gray-500">Documento</dt>
+                                <dd class="mt-1">
+                                    <a href="@Url.Action("DescargarPdf", "Polizas", new { nombreArchivo = Model.ArchivoPdf })" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors duration-200">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                        </svg>
+                                        Descargar PDF
+                                    </a>
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta de cambio de estado -->
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="px-6 py-5 border-b border-gray-200">
+                <h3 class="text-lg font-medium text-gray-900 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                    Cambiar Estado de la Póliza
+                </h3>
+                <p class="mt-1 text-sm text-gray-500">
+                    Seleccione una opción para actualizar el estado de la póliza
+                </p>
+            </div>
+
+            <div class="px-6 py-6">
+                <div class="flex flex-wrap gap-3">
+                    <a href="@Url.Action("CambiarEstado", "Polizas", new { id = Model.IdPoliza, nuevoEstado = "activa" })" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 @(Model.Estado.ToLower() == "activa" ? "opacity-50 cursor-not-allowed" : "")">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Activar
+                    </a>
+                    <a href="@Url.Action("CambiarEstado", "Polizas", new { id = Model.IdPoliza, nuevoEstado = "expirada" })" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-colors duration-200 @(Model.Estado.ToLower() == "expirada" ? "opacity-50 cursor-not-allowed" : "")">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Marcar como Expirada
+                    </a>
+                    <a href="@Url.Action("CambiarEstado", "Polizas", new { id = Model.IdPoliza, nuevoEstado = "cancelada" })" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200 @(Model.Estado.ToLower() == "cancelada" ? "opacity-50 cursor-not-allowed" : "")">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Cancelar Póliza
+                    </a>
+                </div>
+
+                <div class="mt-4 text-sm text-gray-500">
+                    <p class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        El cambio de estado se registrará en el historial de la póliza
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botón de regreso -->
+        <div class="mt-6 flex justify-center">
+            <a href="@Url.Action("Index", "Polizas")" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                Volver al Listado
+            </a>
+        </div>
+    </div>
+</div>
